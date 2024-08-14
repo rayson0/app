@@ -1,0 +1,71 @@
+{% extends 'index.html' %}
+
+{% block body %}
+  <body style = "background: url({{post['bg']}})">
+    <a href = '/read' class = 'arrow_to_back'>
+      <img src = '/static/images/arrow2.png'>
+    </a>
+{% endblock %}
+
+{% block content %}
+  <div class = 'post_div' background = 'white' id = 'post_number_{{post["id"]}}'>
+    <div class = 'body_full_post'>
+      <div class = 'type_of_post_div'>
+        <img src = "{{post['img_type']}}" class = 'type_of_post_img'>
+      </div>
+      <h3 align = 'center'> {{post['header']}} </h3>
+      {% if post['subject'] %}
+        <h3 class = 'subject_text_full_post'> {{post['subject']}} </h3>
+      {% endif %}
+      <div class = 'text_of_post_div_full_post'>
+        {% for prg in post['text'].split('\n') %}
+          <p class = 'text_of_post'> {{prg}} </p>
+        {% endfor %}
+      </div>
+    </div>
+    <div class = 'footer_full_post'>
+      <p align = 'right' class = 'avtor_of_post'> Автор статьи: <i> {{get_user(post['user_id'])}} </i> </p>
+      <p align = 'right' class = 'time_read'> Время чтения: <i> {{post['time_of_read']}} </i> </p>
+      <div class = 'smiles'>
+        {% for smile in range(len(smiles)) %}
+        <form class = 'smile_div' method = 'post' action = '/smile_{{smiles[smile]["link"][22:-4]}}/{{post["id"]}}/{{post["user_id"]}}/SELECT * FROM posts/read_post'>
+          {{form.hidden_tag()}}
+          <div style = "background: url({{smiles[smile]['link']}}); background-size: cover;" class = 'smile_img_div_full_post'>
+            {{form.smile(class = 'smile_img_full_post')}}
+          </div>
+          <span> <b> {{post[smiles[smile]['link'][22:-4]]}} </b> </span>
+        </form>
+        {% endfor %}
+      </div>
+      <div class = 'fast_messages_post'>
+        {% for cat, msg in get_flashed_messages(True) %}
+          <p class = 'fast_messages_text_{{cat}}' style = 'margin-left: 16px;'> {{msg}} </p>
+        {% endfor %}
+      </div>
+      <p align = 'right' class = 'date_of_post'> Дата публикации: {{strptime(post['datetime'], '%Y-%m-%d %H:%M:%S.%f').strftime('%d.%m.%Y')}} </p>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block script_file %}
+  <script>
+    smile_img = document.getElementsByClassName('smile_img_full_post')
+
+    for (i = 0; i < smile_img.length; i ++){
+      smile_img[i].value = ''
+    }
+
+    smiles = document.getElementsByClassName('smile_div')
+    smiles[0].style.margin = '0 0.8vw 0 16px';
+    for (i = 1; i < smiles.length; i ++){
+      smiles[i].style.margin = '0 0.8vw';
+    }
+  </script>
+{% endblock %}
+
+{% block help_forms %}
+
+{% endblock %}

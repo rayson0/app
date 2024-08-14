@@ -1,0 +1,163 @@
+{% extends 'index.html' %}
+
+
+
+{% block content %}
+  {% block form_avatar %}
+
+  {% endblock %}
+  <form id = 'help_form' class = 'center_form'>
+    <button onclick = 'close_help_form()' class = 'img_cross_center btn_cross_profile' style = 'background-image: url({{url_for("static", filename="images/cross.png")}})'>
+    </button>
+    <div class = 'content_help_form'>
+      <div class = 'assistant_help_form_div'>
+        <img src = '{{url_for("static", filename="images/assistant.png")}}' class = 'assistant_help_form_img'>
+      </div>
+      <div class = 'text_help_form_div'>
+        <h3> Помощь спешит! </h3>
+        <p class = 'text_in_div_profile'>
+          Вся первостепенная информация вводится при регистрации
+          (логин, пароль, вид дополнительной информации), а второстепенную
+           можно указать в настройках (информация о себе, ФИО, дополнительная информация)
+        </p>
+      </div>
+    </div>
+  </form>
+  <div class = 'profile_main_div'>
+    <div class = 'menu_profile_div'>
+      <form class = 'menu_profile_form' method = 'post' action = '/logout'>
+        {{form_exit.hidden_tag()}}
+        {% for link in menu %}
+          {% if link['class'] != 'exit_link' %}
+          <a href = '{{link["url"]}}' class = '{{link["class"]}} link_profile border_bottom'>
+            <img src = '{{link["img_url"]}}' class = 'img_profile_link'>
+            <p class = 'text_link_profile'> {{link['text']}} </p>
+          </a>
+          {% else %}
+            <div class = 'exit_link_btn'>
+              {{form_exit.submit1(class =  'exit_link link_profile')}}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </form>
+      <div class = 'empty_div'>
+      </div>
+    </div>
+    <div class = 'window_profile_div'>
+      {% block window %}
+        <div class = 'info_profile_div'>
+          <a class = 'avatar_div' href = 'change_avatar'>
+            <img src = '{{current_user.get_avatar()}}' class = 'avatar_profile_page'>
+            <img src = '{{url_for("static", filename="images/plus.png")}}' class = 'plus_profile_page'>
+          </a>
+          <h3> {{current_user.get_name()}} </h3>
+          <p class = 'text_id_profile'> #{{info['id']}}
+        </div>
+        <div class = 'content_window_profile_div'>
+          <div class = 'login_profile_div'>
+            <div>
+              <h3> Личная информация </h3>
+              <p class = 'text_in_div_profile info_text_profile'>
+                Логин: {{info['name']}}
+              </p>
+              <p class = 'text_in_div_profile info_text_profile'>
+                Идентификатор: #{{info['id']}}
+              </p>
+              <p class = 'text_in_div_profile info_text_profile'>
+                Дата регистрации: {{strptime(info['date'], '%Y-%m-%d %H:%M:%S.%f').strftime('%d.%m.%Y')}}
+              </p>
+            </div>
+          </div>
+          <div class = 'fio_profile_div'>
+            <div>
+              <h3> ФИО пользователя </h3>
+              {% if not info['first_name'] is none %}
+              <p class = 'text_in_div_profile info_text_profile'>
+                {{info['first_name']}} {{info['surname']}} {{info['last_name']}}
+              </p>
+              <p class = 'text_in_div_profile desc_text_profile'> Пользователем будет удобнее обращаться к вам по имени </p>
+              {% else %}
+              <p class = 'text_in_div_profile info_text_profile'> Не указано </p>
+              <p class = 'text_in_div_profile desc_text_profile'> Пользователем будет удобнее обращаться к вам по имени </p>
+            </div>
+            <div>
+              <button onclick = 'open_help_form()' class = 'btn_in_div_profile'>
+                <span> Как указать данные? </span>
+              </button>
+            {% endif %}
+            </div>
+          </div>
+          <div class = 'number_profile_div'>
+            <div>
+            <h3> Номер телефона </h3>
+              {% if not info['number'] is none %}
+              <p class = 'text_in_div_profile info_text_profile'>
+                {{info['number']}}
+              </p>
+              <p class = 'text_in_div_profile desc_text_profile'> Служит для дополнительной информации аккаунта </p>
+              {% else %}
+              <p class = 'text_in_div_profile info_text_profile'> Не указан </p>
+              <p class = 'text_in_div_profile desc_text_profile'> Служит для дополнительной информации аккаунта </p>
+            </div>
+            <div>
+              <button onclick = 'open_help_form()' class = 'btn_in_div_profile'>
+                <span> Как указать данные? </span>
+              </button>
+            {% endif %}
+            </div>
+          </div>
+          <div class = 'email_profile_div'>
+            <div>
+              <h3> Электронная почта </h3>
+              {% if not info['email'] is none %}
+              <p class = 'text_in_div_profile info_text_profile'>
+                {{info['email']}}
+              </p>
+              <p class = 'text_in_div_profile desc_text_profile'> Служит для дополнительной информации аккаунта </p>
+              {% else %}
+              <p class = 'text_in_div_profile info_text_profile'> Не указана </p>
+              <p class = 'text_in_div_profile desc_text_profile'> Служит для дополнительной информации аккаунта </p>
+            </div>
+            <div>
+              <button onclick = 'open_help_form()' class = 'btn_in_div_profile'>
+                <span> Как указать данные? </span>
+              </button>
+            {% endif %}
+            </div>
+          </div>
+          <div class = 'about_me_profile_div'>
+            <div>
+              <h3> О себе </h3>
+              {% if not info['about_me'] is none %}
+              <p class = 'text_in_div_profile info_text_profile'>
+                {{info['about_me']}}
+              </p>
+              <p class = 'text_in_div_profile desc_text_profile'> Напишите личную информацию, свои увлечения, цели на будущее </p>
+              {% else %}
+              <p class = 'text_in_div_profile info_text_profile'> Не указано </p>
+              <p class = 'text_in_div_profile desc_text_profile'> Напишите личную информацию, свои увлечения, цели на будущее </p>
+            </div>
+            <div>
+              <button onclick = 'open_help_form()' class = 'btn_in_div_profile'>
+                <span> Как указать данные? </span>
+              </button>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block script_file %}
+  <script>
+    help_form = document.getElementById('help_form')
+    function open_help_form(){
+      help_form.style.display = 'block'
+    }
+    function close_help_form(){
+      help_form.style.display = 'none'
+    }
+  </script>
+{% endblock %}

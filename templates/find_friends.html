@@ -1,0 +1,92 @@
+{% extends 'index.html' %}
+
+{% block content %}
+  <div class = 'content_friend_div'>
+    <h3 align = 'center'> Предлагаемые друзья <h3>
+      <div class = 'prop_friends_div'>
+        {% if prop_friends %}
+          {% for fr in prop_friends[:40] %}
+            <div class = 'card_of_prop_friend_div'>
+              <div class = 'content_card_of_prop_friend_div'>
+                <div>
+                  <img src = "{{fr['avatar']}}" class = 'avatar_card_of_friends'>
+                </div>
+                <div class = 'info_prop_friend_div'>
+                  <p class = 'bold_text'>
+                    {% if fr['surname'] is none %}
+                      {{fr['name']}}
+                    {% else %}
+                      {{fr['surname']}} {{fr['first_name']}}
+                    {% endif %}
+                  </p>
+                  <p class = 'no_bold_text about_me_friend_text'>
+                    {% if fr['about_me'] is none %}
+                      Не указано
+                    {% else %}
+                      {{fr['about_me']}}
+                    {% endif %}
+                  </p>
+                </div>
+              </div>
+              <form class = 'post_request_friend_form' action = 'request-friend-{{fr["id"]}}' method = 'post'>
+                {{form.submit(class = 'btn_in_div_profile post_request_friend_btn', id = 'request_friend_btn')}}
+              </form>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class = 'bold_text' style = ' margin-left: 5em'>
+            Предлагаемых друзей не нашлось
+          </p>
+        {% endif %}
+      </div>
+  </div>
+
+  {% if len(prop_friends) > 10 %}
+    <button class = 'next_cards_of_friends_btn' onclick = 'next_cards()'>
+      <p>
+        Показать еще...
+      </p>
+    </button>
+  {% endif %}
+{% endblock %}
+
+{% block script_file %}
+  <script>
+    card_of_friend = document.getElementsByClassName('card_of_prop_friend_div')
+    next_card_btn = document.getElementsByClassName('next_cards_of_friends_btn')[0]
+    post_request_friend_btn = document.getElementsByClassName('post_request_friend_btn')
+    post_request_friend_form = document.getElementsByClassName('post_request_friend_form')
+
+    cnt_cards = 10
+
+    for (i = 0; i < cnt_cards; i ++){
+      if (card_of_friend.length > i){
+        card_of_friend[i].style.display = 'flex';
+        card_of_friend[i].style.flexDirection = 'column'
+      }
+    }
+
+    function next_cards(){
+      if (cnt_cards == 30){
+        next_card_btn.style.display = 'none'
+      }
+      cnt_cards += 10
+
+      for (i = 0; i < cnt_cards; i ++){
+        if (card_of_friend.length > i){
+          card_of_friend[i].style.display = 'flex';
+          card_of_friend[i].style.flexDirection = 'column'
+        }
+      }
+      if (cnt_cards > {{len(prop_friends)}}){
+        next_card_btn.style.display = 'none'
+      }
+    }
+
+    for (i = 0; i < post_request_friend_btn.length; i ++){
+      post_request_friend_btn[i].onclick = function (i){
+        post_request_friend_form[i].style.display = 'none'
+      }
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'profile.html' %}
+
+{% block form_avatar %}
+  <form method = 'post' action = '' class = 'form_avatar'  enctype="multipart/form-data">
+    {{form.hidden_tag()}}
+    <a href = 'page'>
+      <img src = '{{url_for("static", filename="images/cross.png")}}' class = 'img_cross_center'>
+    </a>
+    <h2> Выбери новый аватар </h2>
+    <div class = 'avatars_div'>
+      <p class = 'bold_text' style = 'font-size: calc(11px + 0.4vw); margin-bottom: 1em;'>
+        1. Выбери из предложенных
+      </p>
+      {% for i in form.radio %}
+        <div class = 'avatar_div'>
+          {{i}}
+          <img class = 'avatar_form_img'>
+        </div>
+      {% endfor %}
+    </div>
+    <div style = 'margin-top: 1em'>
+      <p class = 'bold_text'>
+        2. {{form.file.label(style = 'font-size: calc(11px + 0.4vw)')}}
+      </p>
+      {{form.file(style = 'margin-top: 1em')}}
+    </div>
+    <div class = 'fast_messages_error'>
+      {% for msg in get_flashed_messages() %}
+        <p> {{msg}} </p>
+      {% endfor %}
+    </div>
+    <div style = 'margin-top: 1em'>
+      {{form.submit(class = 'submit_avatar hover_submit')}}
+    </div>
+  </form>
+{% endblock %}
+
+{% block script_file %}
+    <script>
+
+      avatars = document.getElementsByClassName('avatar_form_img')
+      for (i = 0; i < avatars.length; i ++){
+        avatars[i].src = document.getElementById('radio-' + String(i)).value
+      }
+
+    </script>
+{% endblock %}

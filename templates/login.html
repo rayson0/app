@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+
+{% block content %}
+  <div class = 'div_for_form'>
+    <form method="post" action = '' class = 'form_login'>
+      {{form.hidden_tag()}}
+        <h2>
+            Войти в аккаунт
+        </h2>
+        <div class = 'main_form_div'>
+          <div class = 'line_in_form with_hr'>
+              <p> Логин: </p>
+              {{form.name(placeholder = 'Введи логин', class = 'input_field name')}}
+          </div>
+
+          <div class = 'line_in_form'>
+              <p> Пароль: </p>
+              <div class = 'input_field_password'>
+                  {{form.password(placeholder = 'Введи пароль', class = 'input_field password')}}
+                  <img class = 'see_password' src = '{{url_for("static", filename="images/eye_close.png")}}'>
+              </div>
+          </div>
+          {{form.checkbox(onclick = 'remember()', class = 'remember_checkbox')}}
+          {% for category, msg in get_flashed_messages(True) %}
+              <div class = 'fast_messages {{category}}'>
+                  <p> {{msg}} </p>
+              </div>
+          {% endfor %}
+          {{form.submit(class = 'submit hover_submit')}}
+        </div>
+    </form>
+  </div>
+{% endblock %}

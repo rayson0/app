@@ -1,0 +1,145 @@
+{% extends 'profile.html' %}
+
+{% block window %}
+<div class = 'content_window_posts'>
+  <h3 align = 'center'> Публикации </h3>
+  <div class = 'full_posts_div'>
+    <button class = 'posts_btn' onclick = 'open_all_posts()'>
+      <p> Публикации </p>
+      <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow lvl1'>
+    </button>
+    <div class = 'types_post_div'>
+      {% if types_of_posts %}
+        {% for ind in range(len(types_of_posts)) %}
+          <button class = 'types_btn' onclick = 'open_types_of_posts("{{types_morph[ind]}}")'>
+            <p> {{types_morph[ind]}} </p>
+            <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow lvl2_{{types_morph[ind]}}'>
+          </button>
+          <div class = 'content_posts_div post_{{types_morph[ind]}}'>
+            {% for i in range(len(posts(types_of_posts[ind]['type'], current_user))) %}
+            <div class = 'post_div_profile'>
+              <button class = 'post_btn' onclick = 'open_post("{{posts(types_of_posts[ind]["type"], current_user)[i]["id"]}}")'>
+                <p> {{types_of_posts[ind]['type']}} №{{posts(types_of_posts[ind]['type'], current_user)[i]['id']}} </p>
+                <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow lvl3_{{posts(types_of_posts[ind]["type"], current_user)[i]["id"]}}'>
+              </button>
+              <div class = 'post_mini_div content_post_profile' id = 'post_number_{{posts(types_of_posts[ind]["type"], current_user)[i]["id"]}}'>
+                <div class = 'body_post' style = 'background: url({{posts(types_of_posts[ind]["type"], current_user)[i]["bg"]}})'>
+                  {% if posts(types_of_posts[ind]['type'], current_user)[i]['subject'] %}
+                    <h3 class = 'subject_text'> {{posts(types_of_posts[ind]['type'], current_user)[i]['subject']}} </h3>
+                  {% else %}
+                    <h3 class = 'subject_text'> История </h3>
+                  {% endif %}
+                  <div class = 'text_of_post_div'>
+                    {% for prg in posts(types_of_posts[ind]['type'], current_user)[i]['text'].split('\n')[:2] %}
+                      <p class = 'text_of_post'> {{prg}} </p>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class = 'footer_post_profile'>
+                  <a href = '/read/{{posts(types_of_posts[ind]["type"], current_user)[i]["type"]}}/{{posts(types_of_posts[ind]["type"], current_user)[i]["id"]}}' class  = 'link_post'>
+                    {{posts(types_of_posts[ind]['type'], current_user)[i]['header']}}
+                  </a>
+                  <div class = 'smiles'>
+                    {% for smile in range(len(smiles)) %}
+                    <div class = 'smile_div'>
+                      {{form.hidden_tag()}}
+                      <div style = "background: url({{smiles[smile]['link']}}); background-size: cover;" class = 'smile_img_div'>
+                        {{form.smile(class = 'smile_img')}}
+                      </div>
+                      <span> <b> {{posts(types_of_posts[ind]['type'], current_user)[i][smiles[smile]['link'][22:-4]]}} </b> </span>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class = 'semi-bold_text' style = 'margin: 1.5em 0 0 1.5em'>
+          Публикаций не нашлось
+        </p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script_file %}
+  <script>
+    types_post_div = document.getElementsByClassName('types_post_div')[0]
+    content_posts = document.getElementsByClassName('content_posts_div')
+    arrows1 = document.getElementsByClassName('img_arrow lvl1')
+    arrows2 = document.getElementsByClassName('img_arrow lvl2')
+    content_post = document.getElementsByClassName('post_mini_div')
+    smile_img = document.getElementsByClassName('smile_img')
+    types_btn = document.getElementsByClassName('types_btn')
+
+    for (i = 0; i < types_btn.length; i ++){
+
+    }
+
+    for (i = 0; i < content_post.length; i ++){
+      content_post[i].style.display = 'none';
+    }
+    for (i = 0; i < content_posts.length; i ++){
+      content_posts[i].style.display = 'none';
+    }
+    types_post_div.style.display = 'none'
+
+
+    function open_all_posts(){
+      if (types_post_div.style.display == 'none'){
+        types_post_div.style.display = 'flex';
+        arrows1[0].style.transform = 'rotate(270deg)';
+      }
+      else{
+        types_post_div.style.display = 'none';
+        arrows1[0].style.transform = 'rotate(90deg)';
+      }
+    }
+
+    function open_types_of_posts(type){
+      posts_type = document.getElementsByClassName('post_' + type)
+      arrow = document.getElementsByClassName('img_arrow lvl2_' + type)[0]
+      if (posts_type[0].style.display == 'none'){
+        for (i = 0; i < posts_type.length; i ++){
+          posts_type[i].style.display = 'flex';
+          arrow.style.transform = 'rotate(270deg)'
+        }
+      }
+      else{
+        for (i = 0; i < posts_type.length; i ++){
+          posts_type[i].style.display = 'none';
+          arrow.style.transform = 'rotate(90deg)'
+        }
+      }
+    }
+
+    function open_post(i){
+      post = document.getElementById('post_number_' + i)
+      arrow = document.getElementsByClassName('img_arrow lvl3_' + i)[0]
+      if (post.style.display == 'none'){
+        post.style.display = 'flex';
+        arrow.style.transform = 'rotate(270deg)';
+      }
+      else{
+        post.style.display = 'none';
+        arrow.style.transform = 'rotate(90deg)';
+      }
+    }
+
+    for (i = 0; i < smile_img.length; i ++){
+      smile_img[i].value = ''
+    }
+
+    smiles = document.getElementsByClassName('smile_div')
+    if (smiles.length != 0){
+      smiles[0].style.marginRight = '0.8vw';
+    }
+    for (i = 1; i < smiles.length; i ++){
+      smiles[i].style.margin = '0 0.8vw';
+    }
+  </script>
+{% endblock %}

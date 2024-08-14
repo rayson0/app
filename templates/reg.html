@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+<div class = 'div_for_form'>
+  <form action = '/reg' method="post" class = 'form_reg'>
+    {{form.hidden_tag()}}
+      <h2>
+          Форма регистрации
+      </h2>
+      {% for category, msg in get_flashed_messages(True) %}
+          <div class = 'fast_messages {{category}}'>
+              <p> {{msg}} </p>
+          </div>
+      {% endfor %}
+      <div class = 'line_in_form with_hr'>
+          <p> Логин: </p>
+          {{form.name(placeholder = 'Введи логин', class = 'input_field name')}}
+      </div>
+      <div class = 'line_in_form with_hr'>
+          <p> Доп. информация: </p>
+          <div class = 'block_radio_reg'>
+              <div class = 'radio_reg'>
+                  {{form.radio()}}
+              </div>
+              {{form.info(placeholder = 'Введи доп. информацию', class = 'input_field info', type = 'tel', autocomplete = 'tel', inputmode="tel")}}
+          </div>
+      </div>
+      <div class = 'line_in_form with_hr'>
+          <p> Пароль: </p>
+          <div class = 'input_field_password'>
+              {{form.password1(placeholder = 'Введи пароль', class = 'input_field password')}}
+              <img src = '{{url_for("static", filename="images/eye_close.png")}}' class = 'see_password'>
+          </div>
+      </div>
+      <div class = 'line_in_form'>
+          <p> Повторный пароль: </p>
+          <div class = 'input_field_password_full'>
+              <div class = 'input_field_password'>
+                  {{form.password2(placeholder = 'Введи пароль повторно', class = 'input_field password')}}
+                  <img src = '{{url_for("static", filename="images/eye_close.png")}}' class = 'see_password'>
+              </div>
+          </div>
+      </div>
+      {{form.checkbox(onclick = 'remember()', class = 'remember_checkbox')}}
+      <ul class = 'menu_password_div'>
+        {% for text in menu_password %}
+        <li class = 'line_menu_password_div'>
+          <p> {{text[0].text}} </p>
+          {% if not text[1] %}
+          <img src = '{{url_for("static", filename="images/correct.png")}}' class = 'img_menu_password'>
+          {% else %}
+          <img src = '{{url_for("static", filename="images/wrong.png")}}' class = 'img_menu_password'>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+      <div class = 'block_submit'>
+          {{form.submit(class = 'submit hover_submit')}}
+      </div>
+  </form>
+</div>
+{% endblock %}

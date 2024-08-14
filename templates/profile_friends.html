@@ -1,0 +1,203 @@
+{% extends 'profile.html' %}
+
+{% block window %}
+  <button class = 'friends_btn' onclick = 'open_cards_of_friends()' onmouseover = 'hover_friends_btn()' onmouseout = 'default_hover_friends_btn()'>
+     <p> Друзья ({{cnt_friends}}) </p>
+     <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow'>
+   </button>
+  <div class = 'cards_of_friends_div'>
+    {% if friends %}
+      {% for fr in friends %}
+        <div class = 'card_of_friend_div'>
+          <div class = 'info_with_avatar_friend_div'>
+            <div>
+              <img src = "{{fr['avatar']}}" class = 'avatar_card_of_friends'>
+            </div>
+            <div class = 'info_friend_div'>
+              <p class = 'bold_text'>
+                {% if fr['surname'] is none %}
+                  {{fr['name']}}
+                {% else %}
+                  {{fr['surname']}} {{fr['first_name']}}
+                {% endif %}
+              </p>
+              <p class = 'no_bold_text about_me_friend_text'>
+                {% if fr['about_me'] is none %}
+                  Не указано
+                {% else %}
+                  {{fr['about_me']}}
+                {% endif %}
+              </p>
+            </div>
+          </div>
+          <form action = '/delete_friend_{{fr["frship_id"]}}' method = 'post' class = 'delete_friend_form'>
+            {{form_dlt.hidden_tag()}}
+            {{form_dlt.submit(class = 'btn_in_div_profile delete_friend_btn', id = 'request_friend_btn')}}
+          </form>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class = 'bold_text' style = 'margin-left: 1.5em'>
+        Друзей не нашлось
+      </p>
+    {% endif %}
+
+    {% if len(friends) > 10 %}
+      <button class = 'next_cards_of_friends_btn' onclick = 'next_cards(0)'>
+        Показать еще...
+      </button>
+    {% endif %}
+  </div>
+
+  <button class = 'request_friends_btn' onclick = 'open_cards_of_request_friends()' onmouseover = 'hover_request_friends_btn()' onmouseout = 'default_hover_request_friends_btn()'>
+     <p> Входящие запросы ({{cnt_request_friends}}) </p>
+     <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow'>
+   </button>
+   <div class = 'cards_of_request_friends_div'>
+     {% if request_friends %}
+       {% for fr in request_friends %}
+       <div class = 'card_of_request_friend_div'>
+         <div class = 'info_with_avatar_friend_div'>
+           <div>
+             <img src = "{{fr['avatar']}}" class = 'avatar_card_of_friends'>
+           </div>
+           <div class = 'info_request_friend_div'>
+             <p class = 'bold_text'>
+               {% if fr['surname'] is none %}
+                 {{fr['name']}}
+               {% else %}
+                 {{fr['surname']}} {{fr['first_name']}}
+               {% endif %}
+             </p>
+             <p class = 'no_bold_text about_me_friend_text'>
+               {% if fr['about_me'] is none %}
+                 Не указано
+               {% else %}
+                 {{fr['about_me']}}
+               {% endif %}
+             </p>
+           </div>
+         </div>
+         <div class = 'result_request_friend_div'>
+           <form action = '/agree_request_{{fr["request_id"]}}' class = 'result_request_friend_form' method = 'post'>
+             {{form.hidden_tag()}}
+             {{form.submit_yes(class = 'btn_in_div_profile agree_request_friend_btn', id = 'request_friend_btn')}}
+           </form>
+           <form action = '/against_request_{{fr["request_id"]}}' class = 'result_request_friend_form' method = 'post'>
+             {{form.hidden_tag()}}
+             {{form.submit_no(class = 'btn_in_div_profile against_request_friend_btn', id = 'request_friend_btn')}}
+           </form>
+          </div>
+       </div>
+       {% endfor %}
+     {% else %}
+      <p class = 'bold_text' style = 'margin-left: 1.5em'>
+        Входящих запросов не нашлось
+      </p>
+     {% endif %}
+
+     {% if len(friends) > 10 %}
+       <button class = 'next_cards_of_friends_btn' onclick = 'next_cards(1)'>
+         Показать еще...
+       </button>
+      {% endif %}
+   </div>
+{% endblock %}
+
+{% block script_file %}
+  <script>
+    card_of_friend = document.getElementsByClassName('card_of_friend_div')
+    card_of_request_friend = document.getElementsByClassName('card_of_request_friend_div')
+    next_card_btn = document.getElementsByClassName('next_cards_of_friends_btn')
+    cards_of_friends = document.getElementsByClassName('cards_of_friends_div')[0]
+    img_arrow = document.getElementsByClassName('img_arrow')
+    friends_btn = document.getElementsByClassName('friends_btn')[0]
+    request_friends_btn = document.getElementsByClassName('request_friends_btn')[0]
+    cards_of_request_friends = document.getElementsByClassName('cards_of_request_friends_div')[0]
+
+    cnt_cards = 10
+    cnt_cards_req = 10
+
+    for (i = 0; i < cnt_cards; i ++){
+      if (card_of_friend.length > i){
+        card_of_friend[i].style.display = 'flex'
+        card_of_friend[i].style.flexDirection = 'column'
+        card_of_friend[i].style.justifyContent = 'space-between'
+      }
+    }
+
+    for (i = 0; i < cnt_cards_req; i ++){
+      if (card_of_request_friend.length > i){
+        console.log(0)
+        card_of_request_friend[i].style.display = 'flex'
+        card_of_request_friend[i].style.flexDirection = 'column'
+        card_of_request_friend[i].style.justifyContent = 'space-between'
+      }
+    }
+
+    function next_cards(i){
+      if (i == 0){
+        if (cnt_cards + 10 >= {{len(friends)}}){
+          next_card_btn[i].style.display = 'none'
+        }
+        cnt_cards += 10
+      }
+      else {
+        if (cnt_cards_req + 10 >= {{len(request_friends)}}){
+          next_card_btn[i].style.display = 'none'
+        }
+        cnt_cards_req += 10
+      }
+    }
+
+    cards_of_friends.style.display = 'none';
+    cards_of_request_friends.style.display = 'none'
+    friends_btn.style.marginTop = '1em';
+
+    function open_cards_of_friends(){
+      if (cards_of_friends.style.display == 'none'){
+        cards_of_friends.style.display = 'flex';
+        img_arrow[0].style.transform = 'rotate(270deg)'
+      }
+      else{
+        cards_of_friends.style.display = 'none';
+        img_arrow[0].style.transform = 'rotate(90deg)'
+      }
+    }
+
+    function open_cards_of_request_friends(){
+      if (cards_of_request_friends.style.display == 'none'){
+        cards_of_request_friends.style.display = 'flex';
+        img_arrow[1].style.transform = 'rotate(270deg)'
+      }
+      else{
+        cards_of_request_friends.style.display = 'none';
+        img_arrow[1].style.transform = 'rotate(90deg)'
+      }
+    }
+
+    function hover_friends_btn(){
+      friends_btn.style.background = '#7003e7';
+      friends_btn.style.color = 'white'
+      img_arrow[0].src = '{{url_for("static", filename="images/white_arrow.png")}}'
+    }
+
+    function default_hover_friends_btn() {
+      friends_btn.style.background = 'white';
+      friends_btn.style.color = 'inherit'
+      img_arrow[0].src = '{{url_for("static", filename="images/arrow.png")}}'
+    }
+
+    function hover_request_friends_btn(){
+      request_friends_btn.style.background = '#7003e7';
+      request_friends_btn.style.color = 'white'
+      img_arrow[1].src = '{{url_for("static", filename="images/white_arrow.png")}}'
+    }
+
+    function default_hover_request_friends_btn() {
+      request_friends_btn.style.background = 'white';
+      request_friends_btn.style.color = 'inherit'
+      img_arrow[1].src = '{{url_for("static", filename="images/arrow.png")}}'
+    }
+  </script>
+{% endblock %}

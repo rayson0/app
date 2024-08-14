@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> {{title}} </title>
+    <link rel = 'stylesheet' href = '{{url_for("static", filename="css/style.css")}}'>
+    <link rel = 'icon' href = '{{url_for("static", filename="images/iconic.png")}}' type="image/x-icon">
+
+</head>
+{% block body %}
+<body style = 'background: #f8f8f8'>
+{% endblock %}
+    <form class = 'help_add_post_form'>
+      <button onclick = 'close_help_form(0)' class = 'img_cross_center btn_cross_profile' style = 'background-image: url({{url_for("static", filename="images/cross.png")}})'>
+      </button>
+      <div class = 'content_help_add_post_div'>
+        <div class = 'assistant_help_form_div'>
+          <img src = '{{url_for("static", filename="images/assistant.png")}}' class = 'assistant_help_form_img'>
+        </div>
+        <div class = 'help_add_post_text'>
+          <h3> Помощь спешит! </h3>
+          <p class = 'text_in_div_profile'>
+            Чтобы добавить публикацию необходимо:
+          </p>
+          <ol style = "margin-top: 1em">
+            <li> <p> Войти в систему </p> </li>
+            <li> <p> Перейти по <a href = '/choice_of_post' class = 'help_form_link'> ссылке </a> </p> </li>
+            <li> <p> Выбрать тип публикации </p> </li>
+            <li> <p> Записать данные в форму заполения </p> </li>
+          </ol>
+        </div>
+      </div>
+    </form>
+
+    <form class = 'help_add_post_form'>
+      <button onclick = 'close_help_form(1)' class = 'img_cross_center btn_cross_profile' style = 'background-image: url({{url_for("static", filename="images/cross.png")}})'>
+      </button>
+      <div class = 'content_help_add_post_div'>
+        <div class = 'assistant_help_form_div'>
+          <img src = '{{url_for("static", filename="images/assistant.png")}}' class = 'assistant_help_form_img'>
+        </div>
+        <div class = 'help_add_post_text'>
+          <h3> Помощь спешит! </h3>
+          <p class = 'text_in_div_profile'>
+            Чтобы читать публикации необходимо:
+          </p>
+          <ol style = "margin-top: 1em">
+            <li> <p> Перейти по <a href = '/read' class = 'help_form_link'> ссылке </a> </p> </li>
+            <li> <p> Отфильтровать публикации по вашему желанию или же
+              воспользоваться поиском по заголовку или уникальному номеру </p> </li>
+          </ol>
+        </div>
+      </div>
+    </form>
+
+    <form class = 'help_add_post_form'>
+      <button onclick = 'close_help_form(2)' class = 'img_cross_center btn_cross_profile' style = 'background-image: url({{url_for("static", filename="images/cross.png")}})'>
+      </button>
+      <div class = 'content_help_add_post_div'>
+        <div class = 'friends_help_form_div'>
+          <img src = '{{url_for("static", filename="images/achies/friends.png")}}' class = 'friends_help_form_img'>
+        </div>
+        <div class = 'help_add_post_text'>
+          <h3> Для чего придуман сайт? </h3>
+          <p class = 'text_in_div_profile'>
+            <p> Цель сайта: </p>
+            <ol style = "margin-top: 1em">
+              <li> <p>
+               Сблизить людей по общим интересам
+              </p> </li>
+              <li> <p>
+                Найти себе единомышленников
+              </p> </li>
+              <li> <p>
+                Насладиться чтением интересных публикаций других пользователей,
+                которые опубликовали их на сайте
+              </p> </li>
+              <li> <p>
+                Поделиться своим опытом, событиями, посоветоваться
+              </p> </li>
+            </ol>
+          </p>
+        </div>
+      </div>
+    </form>
+
+    <div class = 'header'>
+        {% if current_user.is_authenticated %}
+        <a href = '/profile/{{current_user.get_name()}}'>
+        {% else %}
+        <a href = '/'>
+        {% endif %}
+          <h1> ПознайМирСУлыбкой </h1>
+        </a>
+        {% for link in links_header_text %}
+            <a href = "{{link['url']}}" class = "{{link['class']}}">
+                {{link['text']}}
+            </a>
+        {% endfor %}
+        {% block links_header %}
+            {% for link in links_header %}
+            <a class = 'block_link_header {{link["class"]}}' href = '{{link["url"]}}'>
+                <img src = '{{link["img_url"]}}' class = 'img_link_header'>
+                <span class = 'p_link_header'> {{link["text"]}} </span>
+            </a>
+            {% endfor %}
+        {% endblock %}
+    </div>
+
+    {% block content %}
+    <div class = 'block_main'>
+      <section class = 'first'>
+        <div class = 'desc_index_div'>
+          <div class = 'desc_text_index_div'>
+            <h1> Публикуй! </h1>
+            <h1 style = 'margin-top: 5px'> Читай! </h1>
+            <h1 style = 'margin-top: 5px'> Знакомься! </h1>
+            <h1 style = 'margin-top: 5px'> Покоряй! </h1>
+            <h1 style = 'margin-top: 5px'> ПознайМирСУлыбкой® </h1>
+            <p class = 'no_bold_text' style = 'margin: 2em 0 calc(2.75em + 0.3vw); font-size: calc(11px + 0.35vw)'>
+              Добавляй захватывающие публикации по мировым темам. Читай
+              публикации других пользователей. Ставь различные реакции.
+              Делись своими впечатлениями. Знакомься с единомышленниками.
+            </p>
+            {% if not current_user.is_authenticated %}
+              <a href = '/reg' class = 'hover_submit' id = 'join_index_btn'>
+                Присоединиться
+              </a>
+            {% endif %}
+          </div>
+          <div class = 'dignities_index_div'>
+            <div class = 'dignity_index_div'>
+              <img src = '{{url_for("static", filename="images/dignities/user.png")}}' class = 'dignity_index_img'>
+              <p class = 'bold_text' style = 'margin-left: 2em; font-size: calc(11px + 0.35vw)'> Более {{cnt_users}} пользователей </p>
+            </div>
+            <div class = 'dignity_index_div' style = 'margin-top: 1em;'>
+              <img src = '{{url_for("static", filename="images/dignities/subjects.png")}}' class = 'dignity_index_img'>
+              <p class = 'bold_text' style = 'margin-left: 2em; font-size: calc(11px + 0.35vw)'> Собрано {{cnt_subjs}} мировых и актуальных тем </p>
+            </div>
+            <div class = 'dignity_index_div' style = 'margin-top: 1em;'>
+              <img src = '{{url_for("static", filename="images/dignities/achie.png")}}' class = 'dignity_index_img'>
+              <p class = 'bold_text' style = 'margin-left: 2em; font-size: calc(11px + 0.35vw)'> Имеются уникальные задания </p>
+            </div>
+            <div class = 'dignity_index_div' style = 'margin-top: 1em;'>
+              <img src = '{{url_for("static", filename="images/dignities/reaction.png")}}' class = 'dignity_index_img'>
+              <p class = 'bold_text' style = 'margin-left: 2em; font-size: calc(11px + 0.35vw)'> Можно оставить реакцию на публикации </p>
+            </div>
+            <div class = 'dignity_index_div' style = 'margin-top: 1em;'>
+              <img src = '{{url_for("static", filename="images/dignities/my_friends.png")}}' class = 'dignity_index_img'>
+              <p class = 'bold_text' style = 'margin-left: 2em; font-size: calc(11px + 0.35vw)'> Можно добавлять пользователей в друзья </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    {% endblock %}
+
+    {% block footer %}
+    <footer>
+      <div class = 'content_footer'>
+        <div class = 'clients_div'>
+          <h3> Клиентам </h3>
+          <div class = 'footer_link_div'>
+            <a href = '/support' class = 'footer_link'>
+              <p> Помощь </p>
+            </a>
+          </div>
+          <div class = 'footer_link_div'>
+            <button class = 'footer_help_btn'>
+              <p> Как добавить публикацию? </p>
+            </button>
+          </div>
+          <div class = 'footer_link_div'>
+            <button class = 'footer_help_btn'>
+              <p> Как читать публикации? </p>
+            </button>
+          </div>
+          <div class = 'footer_link_div'>
+            <button class = 'footer_help_btn'>
+              <p> О сайте </p>
+            </button>
+          </div>
+        </div>
+        <div class = 'connect_div'>
+          <h3> Контакты </h3>
+          <div class = 'iconic_div_footer'>
+            <a href = 'https://t.me/rayson0_0' class = 'iconic_footer_a'>
+              <img src = '{{url_for("static", filename="images/iconic/telegram.png")}}' class = 'iconic_img_footer'>
+            </a>
+            <a href = 'https://vk.com/id818581144' class = 'iconic_footer_a' style = 'margin-left: 1em'>
+              <img src = '{{url_for("static", filename="images/iconic/vk.png")}}' class = 'iconic_img_footer'>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    {% endblock %}
+</body>
+{% block script_file %}
+    <script src = "{{ url_for('static', filename = 'scripts/script.js') }}"></script>
+{% endblock %}
+
+{% block help_forms %}
+  <script>
+    add_post_btn = document.getElementsByClassName('footer_help_btn')
+    help_add_post_div = document.getElementsByClassName('help_add_post_form')
+
+    add_post_btn[0].onclick = function (){
+      help_add_post_div[0].style.display = 'block'
+    }
+
+    add_post_btn[1].onclick = function (){
+      help_add_post_div[1].style.display = 'block'
+    }
+
+    add_post_btn[2].onclick = function (){
+      help_add_post_div[2].style.display = 'block'
+    }
+
+    function close_help_form(i){
+        help_add_post_div[i].style.display = 'none'
+    }
+  </script>
+{% endblock %}
+</html>

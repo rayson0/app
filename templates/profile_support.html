@@ -1,0 +1,119 @@
+{% extends 'profile.html' %}
+
+{% block window %}
+  <h3 align = 'center'> Чат с поддержкой </h3>
+  <div class = 'chat_support_div'>
+    <div class = 'request_support_div'>
+      <button class = 'history_support_btn'>
+        <p> История </p>
+        <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow'>
+      </button>
+      <div class = 'content_support_div'>
+        {% if requests %}
+          {% for req in requests %}
+          <div class = 'full_request_content_div'>
+            <button class = 'full_request_support_btn' onclick = 'open_request({{req[0] - 1}})'>
+               <p> Запрос №{{req[0]}} </p>
+               <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow request'>
+             </button>
+            <div class = 'request_div'>
+              <button class = 'request_support_btn' onclick = 'open_question({{req[0] - 1}})'>
+                <p> Запрос </p>
+                <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow question'>
+              </button>
+              <div class = 'content_request_support_div'>
+                  <p> <b> Тема: </b> {{req[1]}} </p>
+                  <p> <b> Сообщение: </b> {{req[2]}} </p>
+              </div>
+              <button class = 'answer_support_btn' onclick = 'open_answer({{req[0] - 1}})'>
+                <p> Ответ </p>
+                <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow answer'>
+              </button>
+              <div class = 'content_answer_support_div'>
+                <p> <b> Ответ: </b> {{'нет ответа' if req[3] is none else req[3]}}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div class = 'full_request_content_div'>
+            <p class = 'semi-bold_text'> Входящих запросов не было </p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script_file %}
+  <script>
+    document.getElementsByClassName('history_support_btn')[0].onclick = open_requests
+
+    content = document.getElementsByClassName('content_support_div')[0]
+    arrow = document.getElementsByClassName('img_arrow')[0]
+    request_div = document.getElementsByClassName('request_div')
+    arrows_request_div = document.getElementsByClassName('img_arrow request')
+    content_question = document.getElementsByClassName('content_request_support_div')
+    arrows_question = document.getElementsByClassName('img_arrow question')
+    content_answer = document.getElementsByClassName('content_answer_support_div')
+    arrows_answer = document.getElementsByClassName('img_arrow answer')
+
+
+    content.style.display = 'none'
+    for (ind = 0; ind < request_div.length; ind ++){
+      request_div[ind].style.display = 'none'
+    }
+    for (ind = 0; ind < content_question.length; ind ++){
+      content_question[ind].style.display = 'none'
+      content_answer[ind].style.display = 'none'
+    }
+
+
+    function open_requests(){
+      if (content.style.display == 'none'){
+        console.log(1)
+        content.style.display = 'flex';
+        arrow.style.transform = 'rotate(270deg)'
+
+      }
+      else{
+        console.log(content.style.display)
+        content.style.display = 'none';
+        arrow.style.transform = 'rotate(90deg)'
+      }
+    }
+
+    function open_request(index){
+      if (request_div[index].style.display == 'none'){
+        request_div[index].style.display = 'flex';
+        arrows_request_div[index].style.transform = 'rotate(270deg)'
+      }
+      else{
+        request_div[index].style.display = 'none';
+        arrows_request_div[index].style.transform = 'rotate(90deg)'
+      }
+    }
+
+    function open_question(ind){
+      if (content_question[ind].style.display == 'none'){
+        content_question[ind].style.display = 'flex';
+        arrows_question[ind].style.transform = 'rotate(270deg)'
+      }
+      else{
+        content_question[ind].style.display = 'none';
+        arrows_question[ind].style.transform = 'rotate(90deg)'
+      }
+    }
+
+    function open_answer(ind){
+      if (content_answer[ind].style.display == 'none'){
+        content_answer[ind].style.display = 'flex';
+        arrows_answer[ind].style.transform = 'rotate(270deg)'
+      }
+      else{
+        content_answer[ind].style.display = 'none';
+        arrows_answer[ind].style.transform = 'rotate(90deg)'
+      }
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,184 @@
+import datetime as dt
+
+from flask_wtf import FlaskForm
+from wtforms import *
+from wtforms.validators import *
+
+from app import current_user
+from database import *
+
+db = DB()
+
+
+class CheckboxField(SelectMultipleField):
+    widget = widgets.ListWidget(prefix_label=False)
+    option_widget = widgets.CheckboxInput()
+
+
+class SupportForm(FlaskForm):
+    subjects = db.get_subjs_support()
+
+    name = StringField('name', validators=[DataRequired(), Length(min=2)])
+    nickname = StringField('nickname', validators=[DataRequired(), Length(min=2)])
+    subject = SelectField('subject', choices=subjects)
+    message = TextAreaField('message', validators=[DataRequired(), Length(min=5)])
+    submit = SubmitField('Отправить')
+
+
+class RegistrationForm(FlaskForm):
+    list_info = ['Номер телефона', 'Электронная почта']
+
+    name = StringField('name', validators=[DataRequired(), length(min=2, max=20)])
+    info = StringField('info', validators=[DataRequired()])
+    password1 = PasswordField('password1', validators=[DataRequired(), Length(min=4, max=30)])
+    password2 = PasswordField('password2', validators=[DataRequired(), Length(min=4, max=30)])
+    radio = RadioField('radio', choices=[(info, info) for info in list_info], validators=[DataRequired()])
+    checkbox = CheckboxField('Label', choices=[(False, 'Запомнить меня')])
+    date = dt.datetime.now()
+    submit = SubmitField('Зарегистрироваться')
+
+
+class LoginForm(FlaskForm):
+    name = StringField('name', validators=[DataRequired()])
+    password = PasswordField('password', validators=[DataRequired()])
+    checkbox = CheckboxField('Label', choices=[(False, 'Запомнить меня')])
+    submit = SubmitField('Войти')
+
+
+class ExitForm(FlaskForm):
+    submit1 = SubmitField('Выйти')
+
+
+class AvatarForm(FlaskForm):
+    links = [f'{IMG}avatar{i}.png' for i in range(1, 5)]
+    radio = RadioField('radio', choices=[(i, i) for i in links])
+    file = FileField('Выбери файл')
+    submit = SubmitField('Подтвердить')
+
+
+class AddTemplateForm(FlaskForm):
+    value = '#втоп #рекомендации'
+    header = StringField('header', validators=[Length(max=35)])
+    text = TextAreaField('msg', validators=[DataRequired(), Length(min=5)])
+    tags = TextAreaField('tags')
+    tags_default = CheckboxField('Label', choices=[(value, 'Подключить хештеги по умолчанию')])
+    submit = SubmitField('Опубликовать')
+    date = dt.datetime.now()
+
+
+class AddArticleForm(AddTemplateForm):
+    subject = SelectField('subject', choices=db.get_subjs(), validators=[DataRequired()])
+
+
+class AddStoryForm(AddTemplateForm):
+    pass
+
+
+class AddReasForm(AddTemplateForm):
+    subject = SelectField('subject', choices=db.get_subjs(), validators=[DataRequired()])
+
+
+class SearchForm(FlaskForm):
+    checkbox_tags = CheckboxField('checkbox_tags', choices=db.get_tags())
+    checkbox_subjs = CheckboxField('checkbox_subjs', choices=db.get_subjects_filter())
+    checkbox_types = CheckboxField('checkbox_types', choices=db.get_types_of_post())
+    check_all_choices = CheckboxField('all_choices', choices=[(True, f'Выбрать все ({db.get_count_posts()})')])
+    check_with_user = CheckboxField('with_user',
+                                    choices=[(True, f'Включить собственные публикации')])
+    select_sort = SelectField('sort', choices=[('new', 'От новых к старым'), ('old', 'От старых к новым')])
+    submit_filter = SubmitField('Подтвердить')
+    search = StringField('search')
+    submit_search = SubmitField()
+    smile = SubmitField()
+
+
+class ChoiceOfPostForm(FlaskForm):
+    btn = SubmitField('Статья')
+
+
+class Submit(FlaskForm):
+    submit = SubmitField('Подтвердить')
+
+
+class ChangeEmailForm(Submit):
+    email = StringField(validators=[Email(), DataRequired()])
+
+
+class ChangeNumberForm(Submit):
+    number = StringField(validators=[DataRequired()])
+
+
+class ChangeFioForm(Submit):
+    first = StringField(validators=[Length(min=2), DataRequired()])
+    sur = StringField(validators=[Length(min=2), DataRequired()])
+    last = StringField(validators=[Length(min=2), DataRequired()])
+
+
+class ChangeAboutMeForm(Submit):
+    about_me = TextAreaField(validators=[DataRequired(), Length(min=5)])
+
+
+class ChangePasswordForm1(Submit):
+    old_password = PasswordField(validators=[DataRequired()])
+
+
+class ChangePasswordForm2(Submit):
+    password = PasswordField(validators=[DataRequired(), Length(min=4)])
+    password_again = PasswordField(validators=[EqualTo('password', message='Пароли не совпадают!'), DataRequired()])
+
+
+class GetPrizeAchieForm(FlaskForm):
+    submit = SubmitField('Забрать награду')
+
+
+class AddFriendForm(FlaskForm):
+    submit = SubmitField('Добавить в друзья')
+
+
+class AnswerRequestFriendForm(FlaskForm):
+    submit_yes = SubmitField('Принять')
+    submit_no = SubmitField('Отклонить')
+
+
+class DeleteFriendForm(FlaskForm):
+    submit = SubmitField('Удалить из друзей')
+
+'''
+<div class = 'post_div' style = 'background: url({{post["bg"]}})' id = 'post_number_{{post["id"]}}'>
+            <div class = 'body_post'>
+              <div class = 'type_of_post_div'>
+                <img src = "{{post['img_type']}}" class = 'type_of_post_img'>
+              </div>
+              <h3 align = 'center'> {{post['header']}} </h3>
+              {% if post['subject'] %}
+                <h3 class = 'subject_text'> {{post['subject']}} </h3>
+              {% endif %}
+              <div class = 'text_of_post_div'>
+                {% for prg in post['text'].split('\n')[:2] %}
+                  <p class = 'text_of_post'> {{prg}} </p>
+                {% endfor %}
+              </div>
+              <div  class = 'read_yet'>
+                <a href = '/read/{{post["id"]}}'> <p> Показать еще... </p> </a>
+              </div>
+            </div>
+            <div class = 'footer_post'>
+              <p align = 'right' class = 'avtor_of_post'> Автор статьи: <i> {{post['user']}} </i> </p>
+              <p align = 'right' class = 'time_read'> Время чтения: <i> {{post['time_read']}} </i> </p>
+              <div class = 'smiles'>
+                {% for smile in range(len(smiles)) %}
+                <form class = 'smile_div' method = 'post' action = 'smile_{{smiles[smile]["link"][22:-4]}}_{{post["id"]}}_{{post["user"]}}'>
+                  {{form.hidden_tag()}}
+                  <div style = "background: url({{smiles[smile]['link']}}); background-size: cover;" class = 'smile_img_div'>
+                    {{form.smile(class = 'smile_img')}}
+                  </div>
+                  <span> <b> {{post[smiles[smile]['link'][22:-4]]}} </b> </span>
+                </form>
+                {% endfor %}
+              </div>
+              <div class = 'fast_messages_post'>
+                  <p class = 'limit_of_post_text'> </p>
+              </div>
+              <p align = 'right' class = 'date_of_post'> Дата публикации: {{'0' + str(post['day']) if len(str(post['day'])) == 1 else post['day']}}.{{'0' + str(post['month']) if len(str(post['month'])) == 1 else post['month']}}.{{post['year']}} в {{post['time']}} </p>
+            </div>
+          </div>'''

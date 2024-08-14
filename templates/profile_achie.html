@@ -1,0 +1,154 @@
+{% extends 'profile.html' %}
+
+{% block window %}
+  <h3 align = 'center'> Достижения </h3>
+  <div class = 'full_achies_div'>
+    {% for achie in achies %}
+      <div class = 'achie_div'>
+        <div class = 'content_achie_div'>
+          <div class = 'body_achie_div'>
+            <img src = '{{achie["img"]}}' class = 'img_achie'>
+            <h3 class = 'name_achie_text'> {{achie['name']}} </h3>
+            <p class = 'desc_achie_text'> {{achie['desc']}} </p>
+          </div>
+          <div class = 'footer_achie_div'>
+            <div class = 'full_progress_with_points_achie_div'>
+              {% if progress(achie['id'], current_user) >= achie['points'] %}
+              <form action = '/add_compl_achie_{{achie["id"]}}' method = 'post'>
+                 {{form.submit(class = 'hover_submit', id = 'submit_filter')}}
+              </form>
+              {% else %}
+              <div class = 'full_progress_achie_div'>
+                <div class = 'progress_achie_div' style = 'width: calc({{progress(achie["id"], current_user)}}/{{achie["points"]}} * 100%)'>
+                </div>
+                <div class = 'empty_achie_div'>
+                </div>
+              </div>
+              <div class = 'points_progress_achie_div'>
+                <p class = 'points_progress_text'>
+                  {{progress(achie['id'], current_user)}}/{{achie['points']}}
+                </p>
+              </div>
+              {% endif %}
+            </div>
+            <div class = 'price_achie_div'>
+              <img src = '/static/images/achies/money.png' class = 'money_achie_img'>
+              <h3 class = 'price_achie_text'> {{achie['price']}} </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <button class = 'compl_achies_btn' onclick = 'open_compl_achies()' onmouseover = 'hover_compl_achies_btn()' onmouseout = 'default_compl_achies_btn()'>
+      <p> Выполненные достижения </p>
+      <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow'>
+    </button>
+    <div class = 'full_compl_achies_div'>
+      {% if compl_achies %}
+        {% for achie in compl_achies %}
+        <div class = 'achie_div'>
+          <div class = 'content_achie_div'>
+            <div class = 'body_achie_div'>
+              <img src = '{{achie["img"]}}' class = 'img_achie'>
+              <h3 class = 'name_achie_text'> {{achie['name']}} </h3>
+              <p class = 'desc_achie_text'> {{achie['desc']}} </p>
+            </div>
+            <div class = 'footer_achie_div'>
+              <div class = 'compl_achie_iconic_div'>
+                {% for _ in range(achie['price']) %}
+                  <img src = '{{url_for("static", filename="images/compl_achie_iconic.png")}}' class = 'compl_achie_iconic'>
+                {% endfor %}
+              </div>
+              <div class = 'price_achie_div'>
+                <img src = '{{url_for("static", filename="images/achies/money.png")}}' class = 'money_achie_img'>
+                <h3 class = 'price_achie_text'> {{achie['price']}} </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+      <div class = 'without_compl_achies_div'>
+        <div>
+          <h3> Выполненных достижений не нашлось </h3>
+          <p class = 'without_compl_achies_text'> Поэтому вперед к преодолению достижений! </p>
+        </div>
+        <div class = 'without_compl_achie_div_with_img'>
+          <img src = '{{url_for("static", filename="images/success.png")}}'>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <button class = 'progress_achies_btn' onclick = 'open_progress_achies()' onmouseover = 'hover_progress_achies_btn()' onmouseout = 'default_progress_achies_btn()'>
+      <p> Ваш прогресс </p>
+      <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow'>
+    </button>
+    <div class = 'progress_achies_div'>
+      <h1> {{cnt_money}} </h1>
+      <img src = '{{url_for("static", filename="images/achies/money.png")}}' class = 'money_progress_img'>
+      <h1 style = 'margin-left: 0.15em'> / </h1>
+      <h1 style = 'margin-left: 0.15em'> {{cnt_all_money}} </h1>
+      <img src = '{{url_for("static", filename="images/achies/money.png")}}' class = 'money_progress_img'>
+    </div>
+{% endblock %}
+
+{% block script_file %}
+  <script>
+    compl_achies_btn = document.getElementsByClassName('compl_achies_btn')[0]
+    compl_achies_div = document.getElementsByClassName('full_compl_achies_div')[0]
+    progress_achies_btn = document.getElementsByClassName('progress_achies_btn')[0]
+    progress_achies_div = document.getElementsByClassName('progress_achies_div')[0]
+    img_arrow = document.getElementsByClassName('img_arrow')
+
+    compl_achies_div.style.display = 'none'
+
+    function open_compl_achies(){
+      if (compl_achies_div.style.display == 'none'){
+        compl_achies_div.style.display = 'flex';
+        img_arrow[0].style.transform = 'rotate(270deg)'
+      }
+      else{
+        compl_achies_div.style.display = 'none';
+        img_arrow[0].style.transform = 'rotate(90deg)'
+      }
+    }
+
+    function open_progress_achies(){
+      if (progress_achies_div.style.display == 'none'){
+        progress_achies_div.style.display = 'flex';
+        img_arrow[1].style.transform = 'rotate(270deg)'
+      }
+      else{
+        progress_achies_div.style.display = 'none';
+        img_arrow[1].style.transform = 'rotate(90deg)'
+      }
+    }
+
+    function hover_compl_achies_btn(){
+      compl_achies_btn.style.background = '#7003e7';
+      compl_achies_btn.style.color = 'white'
+      img_arrow[0].src = '{{url_for("static", filename="images/white_arrow.png")}}'
+    }
+
+    function hover_progress_achies_btn(){
+      progress_achies_btn.style.background = '#7003e7';
+      progress_achies_btn.style.color = 'white'
+      img_arrow[1].src = '{{url_for("static", filename="images/white_arrow.png")}}'
+    }
+
+    function default_compl_achies_btn(){
+      compl_achies_btn.style.background = 'white';
+      compl_achies_btn.style.color = 'inherit';
+      img_arrow[0].src = '{{url_for("static", filename="images/arrow.png")}}'
+    }
+
+    function default_progress_achies_btn(){
+      progress_achies_btn.style.background = 'white';
+      progress_achies_btn.style.color = 'inherit';
+      img_arrow[1].src = '{{url_for("static", filename="images/arrow.png")}}'
+    }
+  </script>
+{% endblock %}

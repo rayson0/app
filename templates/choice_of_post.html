@@ -1,0 +1,79 @@
+{% extends 'index.html' %}
+
+{% block content %}
+  <div class = 'content_choice_of_post'>
+    <h2 style = 'margin-bottom: 1em;'> Выберите нужный тип публикации </h2>
+    <div class = 'choice_of_post_div'>
+      <form action = '/choice_of_post_Статья' method = 'post' class = 'choice_of_post_form' id = 'choice1'>
+        {{form.hidden_tag()}}
+        <div style = 'width: 3em'>
+          <h1> 1 </h1>
+        </div>
+        <div>
+          {{form.btn(class = 'article btn_choice_post hover_submit', value = 'Статья')}}
+        </div>
+        <div class = 'comment_choice_of_post_div' id = 'comment1'>
+            <p> Направлена на получение знаний, навыков, информации </p>
+            <p style = 'margin-top: 1em'> Все статьи распределены на главные сферы деятельности </p>
+        </div>
+      </form>
+      <hr>
+      <form action = '/choice_of_post_История' method = 'post' class = 'choice_of_post_form' id = 'choice2'>
+        {{form.hidden_tag()}}
+        <div style = 'width: 3em'>
+          <h1> 2 </h1>
+        </div>
+        <div>
+          {{form.btn(class = 'story btn_choice_post hover_submit', value = 'История')}}
+        </div>
+        <div class = 'comment_choice_of_post_div' id = 'comment2'>
+            <p> Рассказ о произошедшем событии/случае от первого лица </p>
+            <p style = 'margin-top: 1em'> Свободный стиль речи </p>
+        </div>
+      </form>
+      <hr>
+      <form action = '/choice_of_post_Сообщение' method = 'post' class = 'choice_of_post_form' id = 'choice3'>
+        {{form.hidden_tag()}}
+        <div style = 'width: 3em'>
+          <h1> 3 </h1>
+        </div>
+        <div>
+          {{form.btn(class = 'reas btn_choice_post hover_submit', value = 'Сообщение')}}
+        </div>
+        <div class = 'comment_choice_of_post_div' id = 'comment3'>
+            <p> Текст в котором можно выдвигать мысли, давать советы </p>
+            <p style = 'margin-top: 1em'> Свободный стиль речи </p>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script_file %}
+  <script>
+    // form = document.getElementsByClassName('btn_choice_post')
+    // comment = document.getElementsByClassName('comment_choice_of_post_div')
+    //
+    // form[0].onmouseover = function (){
+    //   comment[0].style.display = 'block';
+    // }
+    // form[0].onmouseout = function (){
+    //   comment[0].style.display = 'none';
+    // }
+    //
+    //
+    // form[1].onmouseover = function (){
+    //   comment[1].style.display = 'block';
+    // }
+    // form[1].onmouseout = function (){
+    //   comment[1].style.display = 'none';
+    // }
+    //
+    // form[2].onmouseover = function (){
+    //   comment[2].style.display = 'block';
+    // }
+    // form[2].onmouseout = function (){
+    //   comment[2].style.display = 'none';
+    // }
+  </script>
+{% endblock %}

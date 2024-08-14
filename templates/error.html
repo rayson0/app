@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class = 'error_div'>
+  <h2 align = 'center'>
+      {{text}}
+  </h2>
+  <div class = 'error_img_div'>
+    <img src = '{{url_for("static", filename="images/error404.png")}}' class = 'error_img'>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'index.html' %}
+
+{% block content %}
+  <div class = 'full_form_add_post'>
+    <a href = '/choice_of_post' class = 'arrow_to_back'>
+      <img src = '/static/images/arrow2.png'>
+    </a>
+    <form action = '' method = 'post' class = 'form_add_post'>
+      {{form.hidden_tag()}}
+      <h2> Форма добавления публикации </h2>
+      <div class = 'line_in_form_add_post with_hr'>
+        <p> Заголовок: </p>
+        {{form.header(class = 'header_of_post', placeholder = 'Введи заголовок')}}
+      </div>
+      {% if not isinstance(form, AddStoryForm) %}
+      <div class = 'line_in_form_add_post with_hr'>
+        <p> Тема: </p>
+          {{form.subject(class = 'subject')}}
+      </div>
+      {% endif %}
+      <div class = 'line_in_form_add_post with_hr'>
+        <p> Текст: </p>
+        {{form.text(class = 'msg', placeholder = 'Введи текст')}}
+      </div>
+      <div class = 'line_in_form_add_post'>
+        <p> Хештеги: </p>
+        <div class = 'field_with_tags'>
+          {{form.tags(class = 'tags', placeholder = 'Введи продвигающие хештеги')}}
+          {{form.tags_default(onclick = 'check()')}}
+        </div>
+      </div>
+      {% for category, msg in get_flashed_messages(True) %}
+          <div class = 'fast_messages {{category}}'>
+              <p> {{msg}} </p>
+          </div>
+      {% endfor %}
+      <div class = 'block_submit'>
+        {{form.submit(class = 'submit hover_submit')}}
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block script_file %}
+  <script>
+
+    checkbox = document.getElementById('tags_default-0')
+    tags = document.getElementsByClassName('tags')[0]
+    function check(){
+      select = document.getElementsByClassName('subject')[0]
+      if (select != undefined){
+        value = select.value.toLowerCase().replace(' ', '')
+        if (checkbox.checked){
+          tags.value = '{{form.value}} #' + value
+        }
+        else{
+          tags.value = null;
+        }
+      }
+      else{
+        if (checkbox.checked){
+          tags.value = '{{form.value}}'
+        }
+        else{
+          tags.value = null;
+        }
+      }
+    }
+  </script>
+{% endblock %}

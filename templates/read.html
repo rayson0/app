@@ -1,0 +1,201 @@
+{% extends 'index.html' %}
+
+{% block content %}
+  <div class = 'form_read_posts'>
+    <form action='' method='post' class = 'search_flex'>
+      {{form.hidden_tag()}}
+      <div id = 'filter_search_div2'>
+            <div class = 'filter_div'>
+            </div>
+      </div>
+      <div class = 'full_search_div'>
+        <div class = 'search_div'>
+          {{form.search(class = 'search_field', placeholder='Введите заголовок или номер')}}
+          <div class = 'search_btn'>
+            {{form.submit_search(id = 'search_btn')}}
+          </div>
+        </div>
+        <div class = 'count_posts'>
+          <p> Найдено статей по запросу: {{len(posts)}} </p>
+        </div>
+      </div>
+      <div id = 'sort_div'>
+      </div>
+    </form>
+
+    <div class = 'content_search_div'>
+      <form class = 'filter_search_div' action = 'menu', method='post'>
+        {{form.hidden_tag()}}
+        {% for line in range(len(menu_filter)) %}
+          <div class = 'line_in_menu_filter {{menu_filter[line]["class"]}}' onclick = open_content({{line}})>
+            <p> {{menu_filter[line]['name']}} </p>
+            <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow'>
+          </div>
+          <div class = 'content_menu_filter'>
+            {% if line == 0 %}
+              {{form.checkbox_subjs()}}
+            {% elif line == 1 %}
+              {{form.checkbox_tags()}}
+            {% else %}
+              {{form.checkbox_types()}}
+            {% endif %}
+          </div>
+        {% endfor %}
+        <div class = 'checkbox_filter'>
+          <ul id = 'check_all_choices' onclick = 'on_checkboxs()'>
+            <li>
+              <input name = 'check_all_choices' id = 'check_all_choices-0' type = 'checkbox' value = 'True'>
+              <label for = 'check_all_choices-0'>
+                Выберите все ({{cnt_posts}})
+              </label>
+            </li>
+          </ul>
+        </div>
+        <div class = 'checkbox_filter2'>
+          <input name = 'check_with_user' id = 'check_with_user-0' type = 'checkbox' value = 'True'>
+          <label for = 'check_with_user-0'>
+            Выберите собстенные публикации ({{own_posts}})
+          </label>
+        </div>
+        <div class = 'select_filter'>
+          {{form.select_sort()}}
+        </div>
+        <div class = 'submit_menu_filter'>
+          {{form.submit_filter(class = 'hover_submit')}}
+        </div>
+      </form>
+      <div style = 'width: calc(100% - 14em);'>
+        <div class = 'content_request_search_div'>
+          {% for post in posts %}
+            <div class = 'post_mini_div' id = 'post_number_{{post["id"]}}'>
+              <div class = 'body_post' style = 'background: url({{post["bg"]}})'>
+                <img src = '{{post["img_type"]}}' class = 'type_post_iconic_img'>
+                {% if post['subject'] %}
+                  <h3 class = 'subject_text'> {{post['subject']}} </h3>
+                {% else %}
+                  <h3 class = 'subject_text'> История </h3>
+                {% endif %}
+                <div class = 'text_of_post_div'>
+                  {% for prg in post['text'].split('\n')[:2] %}
+                    <p class = 'text_of_post'> {{prg}} </p>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class = 'footer_post'>
+                <a href = '/read/{{post["id"]}}' class  = 'link_post'>
+                  {{post['header']}}
+                </a>
+                <div class = 'smiles'>
+                  {% for smile in range(len(smiles)) %}
+                  <form class = 'smile_div' method = 'post' action = '/smile_{{smiles[smile]["link"][22:-4]}}/{{post["id"]}}/{{post["user_id"]}}/{{request}}/read'>
+                    {{form.hidden_tag()}}
+                    <div style = "background: url({{smiles[smile]['link']}}); background-size: cover;" class = 'smile_img_div'>
+                      {{form.smile(class = 'smile_img')}}
+                    </div>
+                    <span> <b> {{post[smiles[smile]['link'][22:-4]]}} </b> </span>
+                  </form>
+                  {% endfor %}
+                </div>
+                <div class = 'fast_messages_post'>
+                    <p class = 'limit_of_post_text'> </p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div style = 'display: none; height: 100%'>
+
+        </div>
+      </div>
+
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script_file %}
+  <script>
+    search_btn = document.getElementById('search_btn')
+    line_menu = document.getElementsByClassName('line_in_menu_filter')
+    content_menu = document.getElementsByClassName('content_menu_filter')
+    arrows = document.getElementsByClassName('img_arrow')
+    checkbox_tags = document.getElementById('checkbox_tags')
+    input_tags = checkbox_tags.getElementsByTagName('input')
+    checkbox_subjs = document.getElementById('checkbox_subjs')
+    input_subjs = checkbox_subjs.getElementsByTagName('input')
+    check_all_choices = document.getElementById('check_all_choices')
+    smile_img = document.getElementsByClassName('smile_img')
+    text_of_post = document.getElementsByClassName('text_of_post')
+
+    for (i = 0; i < text_of_post.length; i ++){
+      if (text_of_post[i].innerText.length > 60){
+        text_of_post[i].innerText = text_of_post[i].innerText.slice(0, 60) + '...'
+      }
+    }
+
+    for (i = 0; i < smile_img.length; i ++){
+      smile_img[i].value = ''
+    }
+
+    function on_checkboxs(){
+      if (check_all_choices.checked){
+        for (i = 0; i < input_tags.length; i ++){
+          input_tags[i].checked = false;
+        }
+        for (i = 0; i < input_subjs.length; i ++){
+          input_subjs[i].checked = false;
+        }
+        check_all_choices.checked = false
+      }
+      else{
+        for (i = 0; i < input_tags.length; i ++){
+          input_tags[i].checked = true;
+        }
+        for (i = 0; i < input_subjs.length; i ++){
+          input_subjs[i].checked = true;
+        }
+        check_all_choices.checked = true
+      }
+    }
+
+
+    search_btn.value = ''
+
+    function open_content(i){
+        if (content_menu[i].style.display == 'flex'){
+          content_menu[i].style.display = 'none';
+          arrows[i].style.transform = 'rotate(270deg)'
+        }
+        else{
+          content_menu[i].style.display = 'flex';
+          arrows[i].style.transform = 'rotate(90deg)'
+        }
+    }
+
+    {% if get_flashed_messages() %}
+      {% for cat, msg in get_flashed_messages(true) %}
+        post = document.getElementById('post_number_{{session["id_post"]}}')
+        flash_div = post.getElementsByClassName('limit_of_post_text')[0]
+        flash_div.innerText = '{{msg}}'
+        {% if cat == 'error' %}
+          flash_div.style.color = '#b02e2e'
+        {% else %}
+          flash_div.style.color = '#30d13e'
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    smiles = document.getElementsByClassName('smile_div')
+    for (i = 0; i < smiles.length; i += 7){
+      smiles[i].style.marginRight = '0.8vw';
+    }
+    for (i = 1; i < smiles.length; i ++){
+      if (i % 7 != 0){
+        smiles[i].style.margin = '0 0.8vw';
+      }
+    }
+
+
+  </script>
+{% endblock %}

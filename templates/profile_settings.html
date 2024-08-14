@@ -1,0 +1,206 @@
+{% extends 'profile.html' %}
+
+{% block window %}
+  <h3 align = 'center'> Настройки </h3>
+  <h3> Данные пользователя </h3>
+   <div class = 'email_user'>
+     <div class = 'block1_settings'>
+      <p> Электронная почта </p>
+    </div>
+    {% if info['email'] %}
+      <div class = 'without_form_settings email_form'>
+        <div class = 'block2_settings'>
+          <p class = 'info_settings_text'> {{info['email']}} </p>
+        </div>
+        <div class = 'flash_settings_div'>
+          <p></p>
+        </div>
+        <div class = 'block3_settings'>
+          <button class = 'change_info_btn hover_submit' id = 'submit_filter' onclick = 'open_menu_form("email_form")'>
+            Изменить
+          </button>
+        </div>
+      </div>
+      <form action = '/add_email' method = 'post' class = 'change_info_form email_form' style = 'display: none;'>
+    {% else %}
+      <form action = '/add_email' method = 'post' class = 'change_info_form email_form'>
+    {% endif %}
+        {{form_email.hidden_tag()}}
+        <div class = 'block2_settings'>
+          {{form_email.email(placeholder = 'Введите электронную почту', class = 'email input_field', value = '' if info['email'] is none else info['email'])}}
+        </div>
+        {% if not info['email'] %}
+        <div class = 'flash_settings_div'>
+          <p></p>
+        </div>
+        {% endif %}
+        <div class = 'block3_settings'>
+          {{form_email.submit(id = 'submit_filter', class = 'hover_submit')}}
+        </div>
+      </form>
+  </div>
+  <hr>
+  <div class = 'number_user'>
+    <div class = 'block1_settings'>
+      <p> Номер телефона </p>
+    </div>
+    {% if info['number'] %}
+      <div class = 'without_form_settings number_form'>
+        <div class = 'block2_settings'>
+          <p class = 'info_settings_text'> {{info['number']}} </p>
+        </div>
+        <div class = 'flash_settings_div'>
+          <p></p>
+        </div>
+        <div class = 'block3_settings'>
+          <button class = 'change_info_btn submit_filter hover_submit' id = 'submit_filter' onclick = 'open_menu_form("number_form")'>
+            Изменить
+          </button>
+        </div>
+      </div>
+      <form action = '/add_number' method = 'post' class = 'change_info_form number_form' style = 'display: none;'>
+    {% else %}
+      <form action = '/add_number' method = 'post' class = 'change_info_form number_form'>
+    {% endif %}
+        {{form_number.hidden_tag()}}
+        <div class = 'block2_settings'>
+          {{form_number.number(placeholder = 'Введите номер телефона', class = 'number input_field', value = '' if info['number'] is none else info['number'])}}
+        </div>
+        {% if not info['number'] %}
+        <div class = 'flash_settings_div'>
+          <p></p>
+        </div>
+        {% endif %}
+        <div class = 'block3_settings'>
+          {{form_number.submit(id = 'submit_filter', class = 'hover_submit')}}
+        </div>
+      </form>
+  </div>
+  <hr>
+  <div class = 'fio_user'>
+    <div class = 'block1_settings'>
+      <p> ФИО пользователя </p>
+    </div>
+    {% if info['first_name'] %}
+      <div class = 'without_form_settings fio_form'>
+        <div class = 'block2_settings'>
+          <p class = 'info_settings_text'> {{info['surname']}} {{info['first_name']}} {{info['last_name']}} </p>
+        </div>
+        <div class = 'flash_settings_div'>
+          <p></p>
+        </div>
+        <div class = 'block3_settings'>
+          <button class = 'change_info_btn submit_filter hover_submit' id = 'submit_filter' onclick = 'open_menu_form("fio_form")'>
+            Изменить
+          </button>
+        </div>
+      </div>
+      <form action = '/add_fio' method = 'post' class = 'change_info_form fio_form' style = 'display: none;'>
+    {% else %}
+      <form action = '/add_fio' method = 'post' class = 'change_info_form fio_form'>
+    {% endif %}
+        {{form_fio.hidden_tag()}}
+        <div class = 'block2_settings fio_inputs_settings'>
+          {{form_fio.sur(placeholder = 'Введите фамилию', class = 'fio input_field', value = '' if info['surname'] is none else info['surname'])}}
+          {{form_fio.first(placeholder = 'Введите имя', class = 'fio input_field margin_fio', value = '' if info['first_name'] is none else info['first_name'])}}
+          {{form_fio.last(placeholder = 'Введите отчество', class = 'fio input_field margin_fio', value = '' if info['last_name'] is none else info['last_name'])}}
+        </div>
+        {% if not info['first_name'] %}
+        <div class = 'flash_settings_div'>
+          <p></p>
+        </div>
+        {% endif %}
+        <div class = 'block3_settings'>
+          {{form_fio.submit(id = 'submit_filter', class = 'hover_submit')}}
+        </div>
+      </form>
+  </div>
+  <hr>
+  <div class = 'password_user'>
+    <div class = 'block1_settings'>
+      <p> Пароль </p>
+    </div>
+    <div class = 'block3_settings'>
+      <a href = 'change_password1'>
+        <button class = 'hover_submit' id = 'submit_filter'>
+          Изменить пароль
+        </button>
+      </a>
+    </div>
+  </div>
+  <hr>
+  <div class = 'about_me_user'>
+    <div class = 'block1_settings'>
+      <p> О себе </p>
+    </div>
+    {% if info['about_me'] %}
+      <div class = 'without_form_settings about_me_form'>
+        <div class = 'block2_settings'>
+          <p class = 'info_settings_text'> {{info['about_me']}} </p>
+        </div>
+        <div class = 'flash_settings_div'>
+          <p></p>
+        </div>
+        <div class = 'block3_settings'>
+          <button class = 'change_info_btn submit_filter hover_submit' id = 'submit_filter' onclick = 'open_menu_form("about_me_form")'>
+            Изменить
+          </button>
+        </div>
+      </div>
+      <form action = '/add_about_me' method = 'post' class = 'change_info_form about_me_form' style = 'display: none;'>
+    {% else %}
+      <form action = '/add_about_me' method = 'post' class = 'change_info_form about_me_form'>
+    {% endif %}
+        {{form_about_me.hidden_tag()}}
+        <div class = 'block2_settings'>
+          {{form_about_me.about_me(placeholder = 'Введите информацию о себе', class = 'about_me input_field')}}
+        </div>
+        {% if not info['about_me'] %}
+        <div class = 'flash_settings_div'>
+          <p></p>
+        </div>
+        {% endif %}
+        <div class = 'block3_settings'>
+          {{form_about_me.submit(id = 'submit_filter', class = 'hover_submit')}}
+        </div>
+      </form>
+  </div>
+{% endblock %}
+
+{% block script_file %}
+  <script>
+    types = {
+      'email': 0,
+      'number': 1,
+      'fio': 2,
+      'about_me': 3
+    }
+    flash_div = document.getElementsByClassName('flash_settings_div')
+    change_btn = document.getElementsByClassName('change_info_btn')
+    about_me_field = document.getElementsByClassName('about_me input_field')[0]
+
+    about_me_field.innerText = "{{'' if info['about_me'] is none else info['about_me']}}"
+
+    function open_menu_form(i){
+        block3 = document.getElementsByClassName('without_form_settings ' + i)[0]
+        block3.style.display = 'none';
+        form = document.getElementsByClassName('change_info_form ' + i)[0]
+        form.style.display = 'flex'
+    }
+
+    {% if get_flashed_messages() %}
+      {% for cat, msg in get_flashed_messages(True) %}
+        console.log(flash_div[0])
+        flash_div[types["{{session['type_change_data']}}"]].style.display = 'block';
+        prg = flash_div[types["{{session['type_change_data']}}"]].getElementsByTagName('p')[0]
+        prg.innerText = '{{msg}}'
+        {% if cat == 'error' %}
+        prg.style.color = '#b02e2e'
+        {% else %}
+        prg.style.color = '#30d13e'
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+  </script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+
+{% block content %}
+  <div class = 'check_psw_div'>
+    <a href = 'settings' class = 'arrow_to_back margin_arrow'>
+      <img src = '/static/images/arrow2.png'>
+    </a>
+    <form action = '' method = 'post' class = 'check_psw_form'>
+      {{form.hidden_tag()}}
+      <h3> Введите свой старый пароль </h3>
+      <div class = 'password_div_change_psw'>
+        {% if get_flashed_messages() %}
+        {{form.old_password(class = 'password wrong_field input_field', placeholder = 'Введите пароль')}}
+        {% else %}
+        {{form.old_password(class = 'password input_field', placeholder = 'Введите пароль')}}
+        {% endif %}
+        <img src = '{{url_for("static", filename="images/eye_close.png")}}' class = 'see_password' style = 'margin: 0 0 0 0.5vw'>
+      </div>
+      {% for cat, msg in get_flashed_messages(True) %}
+        <div class = 'fast_messages_{{cat}}'>
+          <p> {{msg}} </p>
+        </div>
+      {% endfor %}
+      <div class = 'submit_change_psw'>
+        {{form.submit(id = 'submit', class = 'hover_submit')}}
+      </div>
+    </form>
+  </div>
+{% endblock %}

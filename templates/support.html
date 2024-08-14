@@ -1,0 +1,49 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+  <div class = 'div_for_form'>
+    <form action='/support' method="post" class = 'form_support'>
+      {{form.hidden_tag()}}
+        <h2>
+            Форма для запросов
+        </h2>
+        {% if current_user.is_authenticated %}
+        <div class = 'line_in_form with_hr'>
+            <p> Логин: </p>
+            {{form.name(class = 'input_field name', placeholder = 'Введите логин')}}
+        </div>
+        {% else %}
+        <div class = 'line_in_form with_hr'>
+            <p> Никнейм: </p>
+            {{form.nickname(placeholder = 'Введи никнейм', class = 'input_field name')}}
+        </div>
+        {% endif %}
+        <div class = 'line_in_form with_hr'>
+            <p> Тема сообщения: </p>
+            {{form.subject(class = 'input_field subject')}}
+        </div>
+        <div class = 'line_in_form'>
+            <p> Сообщение: </p>
+            {{form.message(class = 'input_field msg', placeholder = 'Введите сообщение')}}
+        </div>
+        {% for category, msg in get_flashed_messages(True) %}
+        <div class = 'fast_messages {{category}}'>
+            <p> {{msg}} </p>
+        </div>
+        {% endfor %}
+        <div>
+          {{form.submit(class = 'submit hover_submit')}}
+        </div>
+    </form>
+  </div>
+{% endblock %}
+
+
+{% block script_file %}
+    <script>
+      login = document.getElementById('name')
+      login.readOnly = true
+      login.value = '{{current_user.get_name()}}'
+    </script>
+{% endblock %}
