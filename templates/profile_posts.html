@@ -4,23 +4,24 @@
 <div class = 'content_window_posts'>
   <h3 align = 'center'> Публикации </h3>
   <div class = 'full_posts_div'>
-    <button class = 'posts_btn' onclick = 'open_all_posts()'>
+    <button class = 'posts_btn' onclick = 'open_all_posts()' onmouseover = 'change_main_btn(0)' onmouseout = 'change_main_btn(1)'>
       <p> Публикации </p>
       <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow lvl1'>
     </button>
     <div class = 'types_post_div'>
       {% if types_of_posts %}
         {% for ind in range(len(types_of_posts)) %}
-          <button class = 'types_btn' onclick = 'open_types_of_posts("{{types_morph[ind]}}")'>
+          <button class = 'types_btn' onclick = 'open_types_of_posts("{{types_morph[ind]}}")' onmouseover = 'change_type_btn({{ind}}, 0)' onmouseout = 'change_type_btn({{ind}}, 1)'>
             <p> {{types_morph[ind]}} </p>
-            <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow lvl2_{{types_morph[ind]}}'>
+            <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow lvl2_{{types_morph[ind]}} img_arrow_lvl2'>
           </button>
           <div class = 'content_posts_div post_{{types_morph[ind]}}'>
             {% for i in range(len(posts(types_of_posts[ind]['type'], current_user))) %}
             <div class = 'post_div_profile'>
-              <button class = 'post_btn' onclick = 'open_post("{{posts(types_of_posts[ind]["type"], current_user)[i]["id"]}}")'>
+              <button class = 'post_btn' onclick = 'open_post("{{posts(types_of_posts[ind]["type"], current_user)[i]["id"]}}")'  onclick = 'open_types_of_posts("{{types_morph[ind]}}")'
+              onmouseover = 'change_posts_btn({{i}}, 0)' onmouseout = 'change_posts_btn({{i}}, 1)'>
                 <p> {{types_of_posts[ind]['type']}} №{{posts(types_of_posts[ind]['type'], current_user)[i]['id']}} </p>
-                <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow lvl3_{{posts(types_of_posts[ind]["type"], current_user)[i]["id"]}}'>
+                <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow lvl3_{{posts(types_of_posts[ind]["type"], current_user)[i]["id"]}} img_arrow_lvl3'>
               </button>
               <div class = 'post_mini_div content_post_profile' id = 'post_number_{{posts(types_of_posts[ind]["type"], current_user)[i]["id"]}}'>
                 <div class = 'body_post' style = 'background: url({{posts(types_of_posts[ind]["type"], current_user)[i]["bg"]}})'>
@@ -36,7 +37,7 @@
                   </div>
                 </div>
                 <div class = 'footer_post_profile'>
-                  <a href = '/read/{{posts(types_of_posts[ind]["type"], current_user)[i]["type"]}}/{{posts(types_of_posts[ind]["type"], current_user)[i]["id"]}}' class  = 'link_post'>
+                  <a href = '/read/{{posts(types_of_posts[ind]["type"], current_user)[i]["id"]}}' class  = 'link_post'>
                     {{posts(types_of_posts[ind]['type'], current_user)[i]['header']}}
                   </a>
                   <div class = 'smiles'>
@@ -71,14 +72,13 @@
     types_post_div = document.getElementsByClassName('types_post_div')[0]
     content_posts = document.getElementsByClassName('content_posts_div')
     arrows1 = document.getElementsByClassName('img_arrow lvl1')
-    arrows2 = document.getElementsByClassName('img_arrow lvl2')
+    arrows2 = document.getElementsByClassName('img_arrow_lvl2')
+    arrows3 = document.getElementsByClassName('img_arrow_lvl3')
     content_post = document.getElementsByClassName('post_mini_div')
     smile_img = document.getElementsByClassName('smile_img')
     types_btn = document.getElementsByClassName('types_btn')
-
-    for (i = 0; i < types_btn.length; i ++){
-
-    }
+    post_btn = document.getElementsByClassName('post_btn')
+    posts_btn = document.getElementsByClassName('posts_btn')[0]
 
     for (i = 0; i < content_post.length; i ++){
       content_post[i].style.display = 'none';
@@ -140,6 +140,45 @@
     }
     for (i = 1; i < smiles.length; i ++){
       smiles[i].style.margin = '0 0.8vw';
+    }
+
+    function change_main_btn(type){
+      if (type == 0){
+        posts_btn.style.background = '#7003e7';
+        posts_btn.style.color = 'white'
+        arrows1[0].src = '{{url_for("static", filename="images/white_arrow.png")}}'
+      }
+      else{
+        posts_btn.style.background = 'white';
+        posts_btn.style.color = 'inherit';
+        arrows1[0].src = '{{url_for("static", filename="images/arrow.png")}}'
+      }
+    }
+
+    function change_type_btn(ind, type){
+      if (type == 0){
+        types_btn[ind].style.background = '#7003e7';
+        types_btn[ind].style.color = 'white'
+        arrows2[ind].src = '{{url_for("static", filename="images/white_arrow.png")}}'
+      }
+      else{
+        types_btn[ind].style.background = 'white';
+        types_btn[ind].style.color = 'inherit';
+        arrows2[ind].src = '{{url_for("static", filename="images/arrow.png")}}'
+      }
+    }
+
+    function change_posts_btn(ind, type){
+      if (type == 0){
+        post_btn[ind].style.background = '#7003e7';
+        post_btn[ind].style.color = 'white'
+        arrows3[ind].src = '{{url_for("static", filename="images/white_arrow.png")}}'
+      }
+      else{
+        post_btn[ind].style.background = 'white';
+        post_btn[ind].style.color = 'inherit';
+        arrows3[ind].src = '{{url_for("static", filename="images/arrow.png")}}'
+      }
     }
   </script>
 {% endblock %}

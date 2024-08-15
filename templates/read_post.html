@@ -42,7 +42,13 @@
           <p class = 'fast_messages_text_{{cat}}' style = 'margin-left: 16px;'> {{msg}} </p>
         {% endfor %}
       </div>
-      <p align = 'right' class = 'date_of_post'> Дата публикации: {{strptime(post['datetime'], '%Y-%m-%d %H:%M:%S.%f').strftime('%d.%m.%Y')}} </p>
+      <div class = 'date_with_tags_post'>
+        <p class = 'no_bold_text'>
+          Хештеги: {{post['tags']}}
+        </p>
+        <p class = 'no_bold_text'>
+          {{strptime(post['datetime'], '%Y-%m-%d %H:%M:%S.%f').strftime('%d.%m.%Y')}}
+        </p>
     </div>
   </div>
 {% endblock %}

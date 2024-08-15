@@ -43,7 +43,9 @@
 {% block script_file %}
     <script>
       login = document.getElementById('name')
+      {% if current_user.is_authenticated %}
       login.readOnly = true
       login.value = '{{current_user.get_name()}}'
+      {% endif %}
     </script>
 {% endblock %}

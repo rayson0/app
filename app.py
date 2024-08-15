@@ -1,4 +1,5 @@
 from string import *
+from random import *
 
 import phonenumbers
 from validate_email import *
@@ -7,6 +8,7 @@ from werkzeug.utils import secure_filename
 from forms import *
 from user_login import *
 from database import *
+from flask_wtf.csrf import CSRFProtect
 
 # const
 UPLOAD_FOLDER = 'static/images/avatars'
@@ -21,6 +23,11 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message = 'Необходимо авторизоваться для доступа к желаемой странице!'
 login_manager.login_message_category = 'request'
+
+csrf = CSRFProtect(app)
+app.config['SECRET_KEY'] = ''.join(choices(ascii_letters, k=16))
+app.config['WTF_CSRF_SECRET_KEY'] = ''.join(choices(ascii_letters, k=16))
+csrf.init_app(app)
 
 
 @login_manager.user_loader
@@ -100,7 +107,8 @@ def check_verify_info(data, value):
             return False, 'Номер телефона не может совпадать с прошлым!'
         return False, 'Некорректный номер телефона!'
     if data == 'fio':
-        if check_verify_fio(value) and any([value[x] != db.check_unical_value('fio', current_user)[x] for x in range(3)]):
+        if check_verify_fio(value) and any(
+                [value[x] != db.check_unical_value('fio', current_user)[x] for x in range(3)]):
             return True,
         if check_verify_fio(value):
             return False, 'ФИО не может совпадать с прошлым!'
@@ -113,6 +121,7 @@ def check_verify_info(data, value):
         return False, check_verify_password(value)[1]
     return True,
 
+
 def success_flash(data):
     session['type_change_data'] = data
     flash('Данные успешно обновлены!', category='success')
@@ -124,6 +133,7 @@ def not_found_page(error):
                            title='Посторонняя страница',
                            links_header=db.get_info_menu_right(current_user),
                            text='Извини! Я не могу найти страницу!')
+
 
 @app.errorhandler(413)
 def not_found_page(error):
@@ -157,7 +167,7 @@ def support():
         number = db.post_support_req(request.form)
 
         if 'name' in request.form:
-            flash(f'Запрос №{number} под логином {request.form['name']} успешно отправлено!',
+            flash(f'Запрос №{number} под логином {request.form["name"]} успешно отправлено!',
                   category='success')
         else:
             flash(f'Запрос №{number} под никнеймом {request.form["nickname"]} успешно отправлено!',
@@ -656,7 +666,8 @@ def add_email():
 @login_required
 def add_number():
     form = ChangeNumberForm()
-    if request.method == 'POST' and form.validate_on_submit() and all([i.isdigit() for i in request.form.get('number')]):
+    if request.method == 'POST' and form.validate_on_submit() and all(
+            [i.isdigit() for i in request.form.get('number')]):
         res = check_verify_info('number', request.form.get('number'))
         if res[0]:
             db.add_data_user('number', request.form['number'], current_user)
@@ -799,7 +810,8 @@ def profile_support(name):
                            menu=db.profile_menu(),
                            requests=requests,
                            form_exit=ExitForm(),
-                           none=None)
+                           none=None,
+                           len=len)
 
 
 @app.route('/profile/<name>/achievements', methods=['GET', 'POST'])
@@ -875,9 +887,7 @@ def add_compl_achie(id):
         return redirect(url_for('profile_achievements', name=current_user.get_name()))
 
 
-
 if __name__ == '__main__':
-    app.config['SECRET_KEY'] = 'eheripugeqiwgkhjeo[wi'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.config['MAX_CONTENT_LENGTH'] = 2 ** 20
     app.run(debug=True)

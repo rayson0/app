@@ -461,30 +461,22 @@ a {
 .text_link_profile {
   margin: auto 0 auto 1.5em;
 }
-
+.compl_achies_btn, .friends_btn, .request_friends_btn, .progress_achies_btn,
 .history_support_btn, .full_request_support_btn, .request_support_btn,
 .answer_support_btn, .post_btn, .posts_btn, .types_btn, .compl_achies_btn,
 .friends_btn, .request_friends_btn, .progress_achies_btn {
   display: flex;
   flex-direction: row;
-  width: calc(10.5em + 1.6vw);
   justify-content: space-between;
-  background: none;
-  border: none;
-  align-items: center;
-  padding: 0.5vw calc(3px + 0.8vw);
-  transition: .2s linear;
-}
-.history_support_btn:hover, .full_request_support_btn:hover, .request_support_btn:hover,
-.answer_support_btn:hover, .post_btn:hover, .posts_btn:hover, .types_btn:hover {
-  border-radius: calc(0.5vw + 1em);
-  box-shadow: inset 0 0 1em 0 #cfcfcf;
-}
-.compl_achies_btn, .friends_btn, .request_friends_btn, .progress_achies_btn {
   width: calc(100% - 3em);
   margin: 0 auto;
   box-shadow: 0 0 1em #d1d1d1;
   border-radius: calc(0.5vw + 1em);
+  border: none;
+  align-items: center;
+  padding: 0.5vw calc(3px + 0.8vw);
+  transition: .2s linear;
+  background: white;
 }
 .progress_achies_btn {
   margin-top: 1em;
@@ -510,10 +502,13 @@ a {
   flex-direction: column;
 }
 .request_support_btn, .answer_support_btn {
-  margin-top: 1em;
+  margin-top: 1.5em;
 }
 .content_request_support_div {
   flex-direction: column;
+}
+.content_request_support_div, .content_answer_support_div {
+  margin: 1em 1.5em;
 }
 .content_request_support_div p, .content_answer_support_div p {
   margin-top: 0.8em;
@@ -821,8 +816,13 @@ a {
 .text_of_post_div_full_post {
   margin: 1em 32px;
 }
-.time_read, .date_of_post {
+.time_read, .date_with_tags_post {
   margin-top: 0.5em;
+}
+.date_with_tags_post {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .subject_text {
   margin: 0.5em 16px 0 16px;
@@ -882,7 +882,7 @@ option:focus {
 .fast_messages_post {
   display: flex;
   align-items: center;
-  height: 2.5em;
+  height: 3em;
 }
 .read_yet {
   margin-top: 1em;
@@ -1167,6 +1167,9 @@ option:focus {
   background-size: cover;
   cursor: pointer;
 }
+.btn_cross_profile:hover, .img_cross_center:hover {
+  opacity: 0.7;
+}
 .content_help_form, .content_help_add_post_div {
   display: flex;
   flex-direction: row;
@@ -1331,7 +1334,7 @@ option:focus {
   right: 0.5em;
 }
 .progress_achies_div {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   margin-top: 2em;
@@ -1339,4 +1342,13 @@ option:focus {
 .money_progress_img {
   width: 2em;
   margin-left: 0.6em;
+}
+.sad_boy_find_friend_img {
+  width: 13em;
+  margin-top: 2em;
+}
+.not_found_friends_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

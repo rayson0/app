@@ -34,9 +34,12 @@
             </div>
           {% endfor %}
         {% else %}
-          <p class = 'bold_text' style = ' margin-left: 5em'>
+        <div class = 'not_found_friends_div'>
+          <h3 class = 'bold_text' style = ' margin-left: 5em'>
             Предлагаемых друзей не нашлось
-          </p>
+          </h3>
+          <img src = '{{url_for("static", filename="images/sadness.png")}}' class = 'sad_boy_find_friend_img'>
+        </div>
         {% endif %}
       </div>
   </div>

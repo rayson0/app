@@ -9,8 +9,8 @@ from pprint import *
 
 def get_name_for_seen_post(type, seen):
     if seen == 100:
-        return f'Успех и слава в {morph.parse(type)[0].inflect({'loct', 'plur'}).word}!'
-    return f'Первые просмотры в {morph.parse(type)[0].inflect({'loct', 'plur'}).word}!'
+        return f"Успех и слава в {morph.parse(type)[0].inflect({'loct', 'plur'}).word}!"
+    return f"Первые просмотры в {morph.parse(type)[0].inflect({'loct', 'plur'}).word}!"
 
 
 def get_name_for_friends(friends):
@@ -31,7 +31,7 @@ def get_name_for_reactions(reactions):
 
 morph = pymorphy3.MorphAnalyzer()
 
-DATABASE = 'static/db/database.db'
+DATABASE = "C:\\Users\\User\\OneDrive\\Рабочий стол\\Flask\\Start_project\\static\\db\\database.db"
 IMG = '/static/images/'
 SMILES = IMG + 'smiles/'
 BG_POST = IMG + 'bg_post/'
@@ -160,16 +160,18 @@ subjects_of_posts = {
     'Авиация': f'{BG_POST}aviation.jpg',
     'Информационные технологии': f'{BG_POST}it.jpg',
     'Кулинария': f'{BG_POST}cook.jpg',
-    'Другое': f'{BG_POST}other.jpg',
     'Медицина': f'{BG_POST}medicina.jpg',
     'Наука': f'{BG_POST}science.jpg',
+    'Недвижимость': f'{BG_POST}real_estate.jpg',
     'Образование': f'{BG_POST}education.jpg',
     'Политика': f'{BG_POST}politic.jpg',
     'Природа': f'{BG_POST}priroda.jpg',
     'Промышленность': f'{BG_POST}industry.jpg',
     'Развлечения': f'{BG_POST}funny.jpg',
     'Философия': f'{BG_POST}filosophia.jpg',
+    'Финансы': f'{BG_POST}money.png',
     'Музыка': f'{BG_POST}music.png',
+    'Другое': f'{BG_POST}other.jpg',
 }
 
 subjects_of_support = [
@@ -214,10 +216,10 @@ achies = []
 for ind in (1, 5):
     achies.extend([
         {
-            'desc': f'Добавить {ind} {morph.parse('публикация')[0].inflect({'accs'}).make_agree_with_number(ind).word} на тему {subj}',
+            'desc': f"Добавить {ind} {morph.parse('публикация')[0].inflect({'accs'}).make_agree_with_number(ind).word} на тему {subj}",
             'price': (1, 5).index(ind) + 1,
-            'name': f'Первый шаг в теме {subj}!' if (1, 5).index(
-                ind) == 0 else f'Талантливый писатель в теме {subj}!',
+            'name': f"Первый шаг в теме {subj}!" if (1, 5).index(
+                ind) == 0 else f"Талантливый писатель в теме {subj}!",
             'img': ACHIE + 'add_post.png',
             'points': ind
         } for subj in subjects_of_posts
@@ -225,11 +227,11 @@ for ind in (1, 5):
 for ind in (1, 5):
     achies.extend([
         {
-            'desc': f'Опубликовать 1 {morph.parse(type)[0].inflect({'accs'}).word}' if (1, 5).index(ind) == 0
-            else f'Опубликовать 5 {morph.parse(type)[0].make_agree_with_number(5).word}',
+            'desc': f"Опубликовать 1 {morph.parse(type)[0].inflect({'accs'}).word}" if (1, 5).index(ind) == 0
+            else f"Опубликовать 5 {morph.parse(type)[0].make_agree_with_number(5).word}",
             'price': (1, 5).index(ind) + 1,
-            'name': f'Первый шаг в {morph.parse(type)[0].inflect({'loct', 'plur'}).word}!' if (1, 5).index(ind) == 0
-            else f'Талантливый писатель в {morph.parse(type)[0].inflect({'loct', 'plur'}).word}!',
+            'name': f"Первый шаг в {morph.parse(type)[0].inflect({'loct', 'plur'}).word}!" if (1, 5).index(ind) == 0
+            else f"Талантливый писатель в {morph.parse(type)[0].inflect({'loct', 'plur'}).word}!",
             'img': ACHIE + 'add_post.png',
             'points': ind
         } for type in img_type_of_post
@@ -237,7 +239,7 @@ for ind in (1, 5):
 for seen in (10, 100):
     achies.extend([
         {
-            'desc': f'Набрать {seen} просмотров на {morph.parse(type)[0].inflect({'loct'}).word}',
+            'desc': f"Набрать {seen} просмотров на {morph.parse(type)[0].inflect({'loct'}).word}",
             'price': (10, 100).index(seen) + 1,
             'name': get_name_for_seen_post(type, seen),
             'img': ACHIE + 'seen.png',
@@ -247,7 +249,7 @@ for seen in (10, 100):
 for friends in (1, 5, 20):
     achies.extend([
         {
-            'desc': f'Познакомиться с {friends} {morph.parse('друг')[0].inflect({'ablt'}).make_agree_with_number(friends).word}',
+            'desc': f"Познакомиться с {friends} {morph.parse('друг')[0].inflect({'ablt'}).make_agree_with_number(friends).word}",
             'price': (1, 5, 20).index(friends) + 1,
             'name': get_name_for_friends(friends),
             'img': ACHIE + 'friends.png',
@@ -257,7 +259,7 @@ for friends in (1, 5, 20):
 for reactions in (1, 10, 30):
     achies.extend([
         {
-            'desc': f'Получить {reactions} {morph.parse('реакция')[0].inflect({'accs'}).make_agree_with_number(friends).word}',
+            'desc': f"Получить {reactions} {morph.parse('реакция')[0].inflect({'accs'}).make_agree_with_number(friends).word}",
             'price': (1, 10, 30).index(reactions) + 1,
             'name': get_name_for_reactions(reactions),
             'img': ACHIE + 'reactions.png',
@@ -490,33 +492,30 @@ class DB:
         check_empty = self.cursor.fetchall()
         if not check_empty:
             for link in links_header:
-                self.cursor.execute(f'INSERT INTO menu (text, url, img_url, class) VALUES'
-                                    f' ("{link['text']}", "{link['url']}", "{link['img_url']}", "{link['class']}")')
+                self.cursor.execute(f'''INSERT INTO menu (text, url, img_url, class) VALUES
+                                    ("{link["text"]}", "{link["url"]}", "{link["img_url"]}", "{link["class"]}")''')
                 self.connect.commit()
             for link in links_header_logged:
-                self.cursor.execute(f'INSERT INTO menu_logged (text, url, img_url, class) VALUES'
-                                    f' ("{link['text']}", "{link['url']}", "{link['img_url']}", "{link['class']}")')
+                self.cursor.execute(f'''INSERT INTO menu_logged (text, url, img_url, class) VALUES
+                                    ("{link["text"]}", "{link["url"]}", "{link["img_url"]}", "{link["class"]}")''')
                 self.connect.commit()
             for link in links_header_text:
-                self.cursor.execute(f'INSERT INTO menu_text (text, url, class) VALUES'
-                                    f' ("{link['text']}", "{link['url']}", "{link['class']}")')
+                self.cursor.execute(f'''INSERT INTO menu_text (text, url, class) VALUES
+                                    ("{link["text"]}", "{link["url"]}", "{link["class"]}")''')
                 self.connect.commit()
             for link in criteries:
-                self.cursor.execute(f'INSERT INTO menu_password (text) VALUES'
-                                    f' ("{link}")')
+                self.cursor.execute(f'INSERT INTO menu_password (text) VALUES ("{link}")')
                 self.connect.commit()
             for link in links_profile_page:
-                self.cursor.execute(f'INSERT INTO menu_profile (text, url, img_url, class) VALUES'
-                                    f' ("{link['text']}", "{link['url']}", "{link['img_url']}", "{link['class']}")')
+                self.cursor.execute(f'''INSERT INTO menu_profile (text, url, img_url, class) VALUES
+                                    ("{link["text"]}", "{link["url"]}", "{link["img_url"]}", "{link["class"]}")''')
                 self.connect.commit()
-
             for link in subjects_of_support:
-                self.cursor.execute(f'INSERT INTO subjects_of_support (name) VALUES'
-                                    f' ("{link}")')
+                self.cursor.execute(f'INSERT INTO subjects_of_support (name) VALUES ("{link}")')
                 self.connect.commit()
             for link in menu_filter:
-                self.cursor.execute(f'INSERT INTO menu_filter (name, class) VALUES'
-                                    f' ("{link['name']}", "{link['class']}")')
+                self.cursor.execute(f'''INSERT INTO menu_filter (name, class) VALUES
+                                    ("{link["name"]}", "{link["class"]}")''')
                 self.connect.commit()
             for link in links_smiles:
                 self.cursor.execute(f'INSERT INTO smiles (link) VALUES'
@@ -528,7 +527,7 @@ class DB:
                 self.connect.commit()
             for link in achies:
                 self.cursor.execute(f'INSERT INTO achies (name, desc, price, img, points) VALUES'
-                                    f' ("{link['name']}", "{link['desc']}", {link['price']}, "{link['img']}", "{link['points']}")')
+                                    f' ("{link["name"]}", "{link["desc"]}", {link["price"]}, "{link["img"]}", "{link["points"]}")')
                 self.connect.commit()
 
     def check_header_of_post(self, header):
@@ -600,14 +599,14 @@ class DB:
     def post_support_req(self, request_form):
         if 'name' in request_form:
             self.cursor.execute(f'''INSERT INTO inbox_messages (name, subject, message) 
-                                   VALUES ("{request_form['name']}", 
-                                   "{request_form['subject']}", 
-                                   "{request_form['message']}")''')
+                                   VALUES ("{request_form["name"]}", 
+                                   "{request_form["subject"]}", 
+                                   "{request_form["message"]}")''')
         else:
             self.cursor.execute(f'''INSERT INTO inbox_messages (name, subject, message, logged)
-                                   VALUES ("{request_form['nickname']}", 
-                                   "{request_form['subject']}", 
-                                   "{request_form['message']}", 
+                                   VALUES ("{request_form["nickname"]}", 
+                                   "{request_form["subject"]}", 
+                                   "{request_form["message"]}", 
                                    0)''')
         self.connect.commit()
         self.cursor.execute('SELECT COUNT() FROM inbox_messages')
@@ -618,13 +617,13 @@ class DB:
             self.cursor.execute(f'''INSERT INTO posts (type, bg, user_id, subject, header, text, time_of_read, tags,
                                     datetime, img_type) 
                                     VALUES ("{type}",
-                                    "{self.get_bg_post(request.form['subject'])}", 
+                                    "{self.get_bg_post(request.form["subject"])}", 
                                     "{current_user.get_id()}", 
-                                    "{request.form['subject']}", 
-                                    "{self.check_header_of_post(request.form['header'])}",
-                                    "{request.form['text']}",
-                                    '{self.get_timeread(request.form['text'])}',
-                                    "{request.form['tags']}", 
+                                    "{request.form["subject"]}", 
+                                    "{self.check_header_of_post(request.form["header"])}",
+                                    "{request.form["text"]}",
+                                    "{self.get_timeread(request.form["text"])}",
+                                    "{request.form["tags"]}", 
                                     "{form.date}", 
                                     "{img_type_of_post[type]}")''')
 
@@ -632,12 +631,12 @@ class DB:
             self.cursor.execute(f'''INSERT INTO posts (type, bg, user_id, header, text, time_of_read, tags, 
                                     datetime, img_type) 
                                     VALUES ("{type}", 
-                                    "{BG_POST + 'story.jpg'}",
+                                    "{BG_POST + "story.jpg"}",
                                     "{current_user.get_id()}", 
-                                    "{self.check_header_of_post(request.form['header'])}",
-                                    "{request.form['text']}",
-                                    '{self.get_timeread(request.form['text'])}',
-                                    "{request.form['tags']}", 
+                                    "{self.check_header_of_post(request.form["header"])}",
+                                    "{request.form["text"]}",
+                                    "{self.get_timeread(request.form["text"])}",
+                                    "{request.form["tags"]}", 
                                     "{form.date}", 
                                     "{img_type_of_post[type]}")''')
         self.connect.commit()
@@ -660,11 +659,11 @@ class DB:
             'Номер телефона': 'number'
         }
         self.cursor.execute(f'''
-                            INSERT INTO users (name, password, avatar, add_info, type_info, {add_info[request.form['radio']]}, date) 
+                            INSERT INTO users (name, password, avatar, add_info, type_info, {add_info[request.form["radio"]]}, date) 
                             VALUES 
                             (?, ?, ?, ?, ?, ?, ?)
-                            ''', (request.form['name'],
-                                  generate_password_hash(request.form['password1']),
+                            ''', (request.form["name"],
+                                  generate_password_hash(request.form["password1"]),
                                   url_for('static', filename=f'images/avatar{randint(1, 4)}.png'),
                                   request.form['info'],
                                   request.form['radio'],
@@ -674,7 +673,7 @@ class DB:
 
         self.cursor.execute(f'''SELECT avatar 
                                 FROM users 
-                                WHERE name = "{request.form['name']}"''')
+                                WHERE name = "{request.form["name"]}"''')
         return self.cursor.fetchone()
 
     def find_posts(self, type, current_user):
@@ -813,35 +812,35 @@ class DB:
                             flag = True
                     else:
                         if flag:
-                            request += f' AND tags LIKE "%{session['tags']}%"'
+                            request += f' AND tags LIKE "%{session["tags"]}%"'
                         else:
-                            request += f' WHERE tags LIKE "%{session['tags']}%"'
+                            request += f' WHERE tags LIKE "%{session["tags"]}%"'
                         flag = True
                 if flag2:
                     request += ')'
                 if session['subjs'] not in ('%', ''):
                     if flag:
                         if type(session['subjs']) == list:
-                            request += f' AND subject IN {tuple(session['subjs'])}'
+                            request += f' AND subject IN {tuple(session["subjs"])}'
                         else:
-                            request += f' AND subject LIKE "{session['subjs']}"'
+                            request += f' AND subject LIKE "{session["subjs"]}"'
                     else:
                         if type(session['subjs']) == list:
-                            request += f' WHERE subject IN {tuple(session['subjs'])}'
+                            request += f' WHERE subject IN {tuple(session["subjs"])}'
                         else:
-                            request += f' WHERE subject LIKE "{session['subjs']}"'
+                            request += f' WHERE subject LIKE "{session["subjs"]}"'
                     flag = True
                 if session['tags'] not in ('%', ''):
                     if flag:
                         if type(session['types']) == list:
-                            request += f' AND type IN {tuple(session['types'])}'
+                            request += f' AND type IN {tuple(session["types"])}'
                         else:
-                            request += f' AND type LIKE "{session['types']}"'
+                            request += f' AND type LIKE "{session["types"]}"'
                     else:
                         if type(session['types']) == list:
-                            request += f' WHERE type IN {tuple(session['types'])}'
+                            request += f' WHERE type IN {tuple(session["types"])}'
                         else:
-                            request += f' WHERE type LIKE "{session['types']}"'
+                            request += f' WHERE type LIKE "{session["types"]}"'
             if 'with_user' not in session or not session['with_user']:
                 if current_user.is_authenticated:
                     if flag:
@@ -934,7 +933,7 @@ class DB:
     def add_data_user(self, type, value, current_user):
         if type == 'fio':
             self.cursor.execute(
-                f"""UPDATE users SET first_name = "{value[1]}", surname = '{value[0]}', last_name = '{value[2]}'
+                f"""UPDATE users SET first_name = '{value[1]}', surname = '{value[0]}', last_name = '{value[2]}'
                                            WHERE id = {current_user.get_id()}
                        """)
         else:

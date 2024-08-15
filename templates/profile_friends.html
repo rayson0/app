@@ -1,6 +1,7 @@
 {% extends 'profile.html' %}
 
 {% block window %}
+  <h3 align = 'center'> Друзья </h3>
   <button class = 'friends_btn' onclick = 'open_cards_of_friends()' onmouseover = 'hover_friends_btn()' onmouseout = 'default_hover_friends_btn()'>
      <p> Друзья ({{cnt_friends}}) </p>
      <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow'>

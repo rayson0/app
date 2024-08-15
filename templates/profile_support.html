@@ -4,33 +4,37 @@
   <h3 align = 'center'> Чат с поддержкой </h3>
   <div class = 'chat_support_div'>
     <div class = 'request_support_div'>
-      <button class = 'history_support_btn'>
+      <button class = 'history_support_btn' onmouseover = 'hover_hist_btn(0)' onmouseout = 'hover_hist_btn(1)'
+      onclick = 'open_requests()'>
         <p> История </p>
         <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow'>
       </button>
       <div class = 'content_support_div'>
         {% if requests %}
-          {% for req in requests %}
+          {% for i in range(len(requests)) %}
           <div class = 'full_request_content_div'>
-            <button class = 'full_request_support_btn' onclick = 'open_request({{req[0] - 1}})'>
-               <p> Запрос №{{req[0]}} </p>
+            <button class = 'full_request_support_btn' onclick = 'open_request({{requests[i][0] - 1}})'
+            onmouseover = 'hover_cont_req_btn({{i}}, 0)' onmouseout = 'hover_cont_req_btn({{i}}, 1)'>
+               <p> Запрос №{{requests[i][0]}} </p>
                <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow request'>
              </button>
             <div class = 'request_div'>
-              <button class = 'request_support_btn' onclick = 'open_question({{req[0] - 1}})'>
+              <button class = 'request_support_btn' onclick = 'open_question({{requests[i][0] - 1}})'
+              onmouseover = 'hover_question_btn({{i}}, 0)' onmouseout = 'hover_question_btn({{i}}, 1)'>
                 <p> Запрос </p>
                 <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow question'>
               </button>
               <div class = 'content_request_support_div'>
-                  <p> <b> Тема: </b> {{req[1]}} </p>
-                  <p> <b> Сообщение: </b> {{req[2]}} </p>
+                  <p> <b> Тема: </b> {{requests[i][1]}} </p>
+                  <p> <b> Сообщение: </b> {{requests[i][2]}} </p>
               </div>
-              <button class = 'answer_support_btn' onclick = 'open_answer({{req[0] - 1}})'>
+              <button class = 'answer_support_btn' onclick = 'open_answer({{requests[i][0] - 1}})'
+              onmouseover = 'hover_answer_btn({{i}}, 0)' onmouseout = 'hover_answer_btn({{i}}, 1)'>
                 <p> Ответ </p>
                 <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow answer'>
               </button>
               <div class = 'content_answer_support_div'>
-                <p> <b> Ответ: </b> {{'нет ответа' if req[3] is none else req[3]}}
+                <p> <b> Ответ: </b> {{'Нет ответа' if requests[i][3] is none else requests[i][3]}}
               </div>
             </div>
           </div>
@@ -47,19 +51,24 @@
 
 {% block script_file %}
   <script>
-    document.getElementsByClassName('history_support_btn')[0].onclick = open_requests
-
     content = document.getElementsByClassName('content_support_div')[0]
-    arrow = document.getElementsByClassName('img_arrow')[0]
+    arrows1 = document.getElementsByClassName('img_arrow')
+    arrows2 = document.getElementsByClassName('img_arrow request')
+    arrows3 = document.getElementsByClassName('img_arrow question')
+    arrows4 = document.getElementsByClassName('img_arrow answer')
     request_div = document.getElementsByClassName('request_div')
     arrows_request_div = document.getElementsByClassName('img_arrow request')
     content_question = document.getElementsByClassName('content_request_support_div')
     arrows_question = document.getElementsByClassName('img_arrow question')
     content_answer = document.getElementsByClassName('content_answer_support_div')
     arrows_answer = document.getElementsByClassName('img_arrow answer')
-
+    hist_btn = document.getElementsByClassName('history_support_btn')[0]
+    full_req_btn = document.getElementsByClassName('full_request_support_btn')
+    question_btn = document.getElementsByClassName('request_support_btn')
+    answer_btn = document.getElementsByClassName('answer_support_btn')
 
     content.style.display = 'none'
+
     for (ind = 0; ind < request_div.length; ind ++){
       request_div[ind].style.display = 'none'
     }
@@ -71,15 +80,13 @@
 
     function open_requests(){
       if (content.style.display == 'none'){
-        console.log(1)
         content.style.display = 'flex';
-        arrow.style.transform = 'rotate(270deg)'
+        arrows1[0].style.transform = 'rotate(270deg)'
 
       }
       else{
-        console.log(content.style.display)
         content.style.display = 'none';
-        arrow.style.transform = 'rotate(90deg)'
+        arrows1[0].style.transform = 'rotate(90deg)'
       }
     }
 
@@ -113,6 +120,58 @@
       else{
         content_answer[ind].style.display = 'none';
         arrows_answer[ind].style.transform = 'rotate(90deg)'
+      }
+    }
+
+    function hover_hist_btn(type){
+      if (type == 0){
+        hist_btn.style.background = '#7003e7';
+        hist_btn.style.color = 'white'
+        arrows1[0].src = '{{url_for("static", filename="images/white_arrow.png")}}'
+      }
+      else{
+        hist_btn.style.background = 'white';
+        hist_btn.style.color = 'inherit';
+        arrows1[0].src = '{{url_for("static", filename="images/arrow.png")}}'
+      }
+    }
+
+    function hover_cont_req_btn(i, type){
+      if (type == 0){
+        full_req_btn[i].style.background = '#7003e7';
+        full_req_btn[i].style.color = 'white'
+        arrows2[i].src = '{{url_for("static", filename="images/white_arrow.png")}}'
+      }
+      else{
+        full_req_btn[i].style.background = 'white';
+        full_req_btn[i].style.color = 'inherit';
+        arrows2[i].src = '{{url_for("static", filename="images/arrow.png")}}'
+      }
+    }
+
+    function hover_question_btn(i, type){
+      if (type == 0){
+        question_btn[i].style.background = '#7003e7';
+        question_btn[i].style.color = 'white'
+        arrows3[i].src = '{{url_for("static", filename="images/white_arrow.png")}}'
+      }
+      else{
+        question_btn[i].style.background = 'white';
+        question_btn[i].style.color = 'inherit';
+        arrows3[i].src = '{{url_for("static", filename="images/arrow.png")}}'
+      }
+    }
+
+    function hover_answer_btn(i, type){
+      if (type == 0){
+        answer_btn[i].style.background = '#7003e7';
+        answer_btn[i].style.color = 'white'
+        arrows4[i].src = '{{url_for("static", filename="images/white_arrow.png")}}'
+      }
+      else{
+        answer_btn[i].style.background = 'white';
+        answer_btn[i].style.color = 'inherit';
+        arrows4[i].src = '{{url_for("static", filename="images/arrow.png")}}'
       }
     }
   </script>
