@@ -4,7 +4,6 @@ from flask_wtf import FlaskForm
 from wtforms import *
 from wtforms.validators import *
 
-from app import current_user
 from database import *
 
 db = DB()

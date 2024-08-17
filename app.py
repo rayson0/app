@@ -244,7 +244,7 @@ def read_post(id):
     print()
     if db.get_owner_post(id) != current_user.get_id() and db.check_is_been_views(current_user.get_id(), id) != 1:
         db.update_views(id)
-        db.add_views(current_user.get_id(), id)
+        db.add_views(current_user.get_id(), id, current_user)
     form = SearchForm()
     return render_template('read_post.html',
                            title='Читать статьи',

@@ -5,10 +5,11 @@
     <title> {{title}} </title>
     <link rel = 'stylesheet' href = '{{url_for("static", filename="css/style.css")}}'>
     <link rel = 'icon' href = '{{url_for("static", filename="images/iconic.png")}}' type="image/x-icon">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 {% block body %}
 <body style = 'background: #f8f8f8'>
+  <div class = 'dark_screen'>
 {% endblock %}
     <form class = 'help_add_post_form'>
       <button onclick = 'close_help_form(0)' class = 'img_cross_center btn_cross_profile' style = 'background-image: url({{url_for("static", filename="images/cross.png")}})'>
@@ -105,80 +106,112 @@
             </a>
             {% endfor %}
         {% endblock %}
+        <div class = 'menu_links_header_div'>
+          <button class = 'menu_links_header_btn' onclick = 'open_menu_links_header()'>
+            <img src = '{{url_for("static", filename="images/menu_iconic.png")}}' class = 'menu_links_header_img'>
+            <span class = 'menu_links_header_span'> Меню </span>
+          </button>
+          <div class = 'menu_links_header_text_div'>
+            <a class = 'add_post_btn_menu_header wave1' href = '/choice_of_post'>
+              <span class = 'menu_header_a'> Добавить публикацию </span>
+            </a>
+            <a class = 'read_post_btn_menu_header wave1' href = '/read'>
+              <span class = 'menu_header_a'> Читать публикации </span>
+            </a>
+            <a class = 'find_friends_btn_menu_header wave1' href = '/find_friends'>
+              <span class = 'menu_header_a'> Найти друзей </span>
+            </a>
+            <a class = 'find_friends_btn_menu_header wave2' href = '/support'>
+              <span class = 'menu_header_a'> Обратная связь </span>
+            </a>
+            <a class = 'find_friends_btn_menu_header wave2' href = '/reg'>
+              <span class = 'menu_header_a'> Регистрация </span>
+            </a>
+            <a class = 'find_friends_btn_menu_header wave2' href = '/login'>
+              <span class = 'menu_header_a'> Войти </span>
+            </a>
+          </div>
+        </div>
     </div>
 
     {% block content %}
-    <div class = 'block_main'>
-      <section class = 'first'>
-        <div class = 'desc_index_div'>
-          <div class = 'desc_text_index_div'>
-            <h1> Публикуй! </h1>
-            <h1 style = 'margin-top: 5px'> Читай! </h1>
-            <h1 style = 'margin-top: 5px'> Знакомься! </h1>
-            <h1 style = 'margin-top: 5px'> Покоряй! </h1>
-            <h1 style = 'margin-top: 5px'> ПознайМирСУлыбкой® </h1>
-            <p class = 'no_bold_text' style = 'margin: 2em 0 calc(2.75em + 0.3vw); font-size: calc(11px + 0.35vw)'>
-              Добавляй захватывающие публикации по мировым темам. Читай
-              публикации других пользователей. Ставь различные реакции.
-              Делись своими впечатлениями. Знакомься с единомышленниками.
-            </p>
-            {% if not current_user.is_authenticated %}
-              <a href = '/reg' class = 'hover_submit' id = 'join_index_btn'>
-                Присоединиться
-              </a>
-            {% endif %}
+      <div class = 'block_main'>
+        <section class = 'first'>
+          <div class = 'desc_index_div'>
+            <div class = 'desc_text_index_div'>
+              <h1> Публикуй! </h1>
+              <h1 style = 'margin-top: 5px'> Читай! </h1>
+              <h1 style = 'margin-top: 5px'> Знакомься! </h1>
+              <h1 style = 'margin-top: 5px'> Покоряй! </h1>
+              <h1 style = 'margin-top: 5px'> ПознайМирСУлыбкой® </h1>
+              <p class = 'no_bold_text' style = 'margin: 2em 0 calc(2.75em + 0.3vw);'>
+                Добавляй захватывающие публикации по мировым темам. Читай
+                публикации других пользователей. Ставь различные реакции.
+                Делись своими впечатлениями. Знакомься с единомышленниками.
+              </p>
+              {% if not current_user.is_authenticated %}
+                <a href = '/reg' class = 'hover_submit' id = 'join_index_btn'>
+                  Присоединиться
+                </a>
+              {% endif %}
+            </div>
+            <div class = 'dignities_index_div'>
+              <div class = 'dignity_index_div dignity1'>
+                <img src = '{{url_for("static", filename="images/dignities/user.png")}}' class = 'dignity_index_img'>
+                <p class = 'bold_text dign_text'> Более {{cnt_users}} пользователей </p>
+              </div>
+              <div class = 'dignity_index_div dignity2'>
+                <img src = '{{url_for("static", filename="images/dignities/subjects.png")}}' class = 'dignity_index_img'>
+                <p class = 'bold_text dign_text'> Собрано {{cnt_subjs}} мировых и актуальных тем </p>
+              </div>
+              <div class = 'dignity_index_div dignity3'>
+                <img src = '{{url_for("static", filename="images/dignities/achie.png")}}' class = 'dignity_index_img'>
+                <p class = 'bold_text dign_text'> Имеются уникальные бонусы </p>
+              </div>
+              <div class = 'dignity_index_div dignity4'>
+                <img src = '{{url_for("static", filename="images/dignities/reaction.png")}}' class = 'dignity_index_img'>
+                <p class = 'bold_text dign_text'> Можно оставить реакцию на публикации </p>
+              </div>
+              <div class = 'dignity_index_div dignity5'>
+                <img src = '{{url_for("static", filename="images/dignities/my_friends.png")}}' class = 'dignity_index_img'>
+                <p class = 'bold_text dign_text'> Можно добавлять пользователей в друзья </p>
+              </div>
+              <div class = 'dignity_index_div dignity6'>
+                <img src = '{{url_for("static", filename="images/dignities/assistant2.png")}}' class = 'dignity_index_img'>
+                <p class = 'bold_text dign_text'> Имеется служба поддержки, которая поможет в любой ситуации </p>
+              </div>
+            </div>
           </div>
-          <div class = 'dignities_index_div'>
-            <div class = 'dignity_index_div'>
-              <img src = '{{url_for("static", filename="images/dignities/user.png")}}' class = 'dignity_index_img'>
-              <p class = 'bold_text' style = 'margin-left: 2em; font-size: calc(11px + 0.35vw)'> Более {{cnt_users}} пользователей </p>
-            </div>
-            <div class = 'dignity_index_div' style = 'margin-top: 1em;'>
-              <img src = '{{url_for("static", filename="images/dignities/subjects.png")}}' class = 'dignity_index_img'>
-              <p class = 'bold_text' style = 'margin-left: 2em; font-size: calc(11px + 0.35vw)'> Собрано {{cnt_subjs}} мировых и актуальных тем </p>
-            </div>
-            <div class = 'dignity_index_div' style = 'margin-top: 1em;'>
-              <img src = '{{url_for("static", filename="images/dignities/achie.png")}}' class = 'dignity_index_img'>
-              <p class = 'bold_text' style = 'margin-left: 2em; font-size: calc(11px + 0.35vw)'> Имеются уникальные задания </p>
-            </div>
-            <div class = 'dignity_index_div' style = 'margin-top: 1em;'>
-              <img src = '{{url_for("static", filename="images/dignities/reaction.png")}}' class = 'dignity_index_img'>
-              <p class = 'bold_text' style = 'margin-left: 2em; font-size: calc(11px + 0.35vw)'> Можно оставить реакцию на публикации </p>
-            </div>
-            <div class = 'dignity_index_div' style = 'margin-top: 1em;'>
-              <img src = '{{url_for("static", filename="images/dignities/my_friends.png")}}' class = 'dignity_index_img'>
-              <p class = 'bold_text' style = 'margin-left: 2em; font-size: calc(11px + 0.35vw)'> Можно добавлять пользователей в друзья </p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
     {% endblock %}
 
     {% block footer %}
     <footer>
       <div class = 'content_footer'>
         <div class = 'clients_div'>
-          <h3> Клиентам </h3>
-          <div class = 'footer_link_div'>
-            <a href = '/support' class = 'footer_link'>
-              <p> Помощь </p>
-            </a>
-          </div>
-          <div class = 'footer_link_div'>
-            <button class = 'footer_help_btn'>
-              <p> Как добавить публикацию? </p>
-            </button>
-          </div>
-          <div class = 'footer_link_div'>
-            <button class = 'footer_help_btn'>
-              <p> Как читать публикации? </p>
-            </button>
-          </div>
-          <div class = 'footer_link_div'>
-            <button class = 'footer_help_btn'>
-              <p> О сайте </p>
-            </button>
+          <h3 style = 'margin-left: 6px'> Клиентам </h3>
+          <div class = 'links_clients_div'>
+            <div class = 'footer_link_div'>
+              <button class = 'footer_help_btn'>
+                <p style = 'word-break: break-all; text-align: left'> Как добавить публикацию? </p>
+              </button>
+            </div>
+            <div class = 'footer_link_div'>
+              <button class = 'footer_help_btn'>
+                <p style = 'word-break: break-all; text-align: left'> Как читать публикации? </p>
+              </button>
+            </div>
+            <div class = 'footer_link_div'>
+              <a href = '/support' class = 'footer_link'>
+                <p style = 'word-break: break-all; text-align: left'> Помощь </p>
+              </a>
+            </div>
+            <div class = 'footer_link_div'>
+              <button class = 'footer_help_btn'>
+                <p style = 'word-break: break-all; text-align: left'> О сайте </p>
+              </button>
+            </div>
           </div>
         </div>
         <div class = 'connect_div'>
@@ -195,6 +228,7 @@
       </div>
     </footer>
     {% endblock %}
+  </div>
 </body>
 {% block script_file %}
     <script src = "{{ url_for('static', filename = 'scripts/script.js') }}"></script>
@@ -204,6 +238,9 @@
   <script>
     add_post_btn = document.getElementsByClassName('footer_help_btn')
     help_add_post_div = document.getElementsByClassName('help_add_post_form')
+    menu_links_header_text_div = document.getElementsByClassName('menu_links_header_text_div')[0]
+
+    menu_links_header_text_div.style.display = 'none'
 
     add_post_btn[0].onclick = function (){
       help_add_post_div[0].style.display = 'block'
@@ -219,6 +256,18 @@
 
     function close_help_form(i){
         help_add_post_div[i].style.display = 'none'
+    }
+
+    function open_menu_links_header(){
+      dark_screen = document.getElementsByClassName('dark_screen')[0]
+      if (menu_links_header_text_div.style.display == 'none'){
+        menu_links_header_text_div.style.display = 'flex';
+        dark_screen.style.background = 'rgba(0, 0, 0, 0.04)'
+      }
+      else{
+        menu_links_header_text_div.style.display = 'none'
+        dark_screen.style.background = 'none'
+      }
     }
   </script>
 {% endblock %}

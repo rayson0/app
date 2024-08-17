@@ -981,10 +981,12 @@ class DB:
         self.cursor.execute(f'SELECT name FROM users WHERE id = "{id}"')
         return self.cursor.fetchone()['name']
 
-    def add_views(self, user_id, post_id):
-        self.cursor.execute(f'''INSERT INTO views (user_id, post_id)
-                            VALUES ({user_id}, {post_id})''')
-        self.connect.commit()
+    def add_views(self, user_id, post_id, current_user):
+        if current_user.is_authenticated:
+            self.cursor.execute(f'''INSERT INTO views (user_id, post_id)
+                                VALUES ({user_id}, {post_id})''')
+            self.connect.commit()
+        return None
 
     def check_is_been_views(self, user_id, post_id):
         self.cursor.execute(f'''SELECT COUNT(*) as cnt FROM views
