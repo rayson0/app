@@ -46,7 +46,7 @@
       <ul class = 'menu_password_div'>
         {% for text in menu_password %}
         <li class = 'line_menu_password_div'>
-          <p> {{text[0].text}} </p>
+          <p class = 'line_menu_password_text'> {{text[0].text}} </p>
           {% if not text[1] %}
           <img src = '{{url_for("static", filename="images/correct.png")}}' class = 'img_menu_password'>
           {% else %}

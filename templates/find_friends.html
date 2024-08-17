@@ -2,10 +2,10 @@
 
 {% block content %}
   <div class = 'content_friend_div'>
-    <h3 align = 'center'> Предлагаемые друзья <h3>
-      <div class = 'prop_friends_div'>
-        {% if prop_friends %}
-          {% for fr in prop_friends[:40] %}
+    {% if prop_friends %}
+      {% for fr in prop_friends[:40] %}
+        <h3 align = 'center'> Предлагаемые друзья <h3>
+          <div class = 'prop_friends_div'>
             <div class = 'card_of_prop_friend_div'>
               <div class = 'content_card_of_prop_friend_div'>
                 <div>
@@ -32,16 +32,16 @@
                 {{form.submit(class = 'btn_in_div_profile post_request_friend_btn', id = 'request_friend_btn')}}
               </form>
             </div>
-          {% endfor %}
-        {% else %}
-        <div class = 'not_found_friends_div'>
-          <h3 class = 'bold_text' style = ' margin-left: 5em'>
-            Предлагаемых друзей не нашлось
-          </h3>
-          <img src = '{{url_for("static", filename="images/sadness.png")}}' class = 'sad_boy_find_friend_img'>
-        </div>
-        {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+      <div class = 'not_found_friends_div'>
+        <h2 style = 'width: calc(100% - 15px)' align = 'center'>
+          Предлагаемых друзей не нашлось
+        </h2>
+        <img src = '{{url_for("static", filename="images/sadness.png")}}' class = 'sad_boy_find_friend_img'>
       </div>
+      {% endif %}
   </div>
 
   {% if len(prop_friends) > 10 %}

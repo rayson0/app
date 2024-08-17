@@ -1,12 +1,13 @@
 {% extends 'index.html' %}
 
 {% block content %}
+<div class = 'main_choice_of_post'>
   <div class = 'content_choice_of_post'>
     <h2 style = 'margin-bottom: 1em;'> Выберите нужный тип публикации </h2>
     <div class = 'choice_of_post_div'>
       <form action = '/choice_of_post_Статья' method = 'post' class = 'choice_of_post_form' id = 'choice1'>
         {{form.hidden_tag()}}
-        <div style = 'width: 3em'>
+        <div class = 'number_choice_of_post'>
           <h1> 1 </h1>
         </div>
         <div>
@@ -20,7 +21,7 @@
       <hr>
       <form action = '/choice_of_post_История' method = 'post' class = 'choice_of_post_form' id = 'choice2'>
         {{form.hidden_tag()}}
-        <div style = 'width: 3em'>
+        <div class = 'number_choice_of_post'>
           <h1> 2 </h1>
         </div>
         <div>
@@ -34,7 +35,7 @@
       <hr>
       <form action = '/choice_of_post_Сообщение' method = 'post' class = 'choice_of_post_form' id = 'choice3'>
         {{form.hidden_tag()}}
-        <div style = 'width: 3em'>
+        <div class = 'number_choice_of_post'>
           <h1> 3 </h1>
         </div>
         <div>
@@ -47,6 +48,7 @@
       </form>
     </div>
   </div>
+</div>
 {% endblock %}
 
 {% block script_file %}

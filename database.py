@@ -39,12 +39,6 @@ ACHIE = IMG + 'achies/'
 
 links_header = [
     {
-        'text': 'На главную',
-        'url': '/',
-        'img_url': f'{IMG}main_page.png',
-        'class': 'main_page_link',
-    },
-    {
         'text': 'Обратная связь',
         'url': '/support',
         'img_url': f'{IMG}support.png',
@@ -65,12 +59,6 @@ links_header = [
 ]
 
 links_header_logged = [
-    {
-        'text': 'На главную',
-        'url': '/',
-        'img_url': f'{IMG}main_page.png',
-        'class': 'main_page_link',
-    },
     {
         'text': 'Обратная связь',
         'url': '/support',
@@ -897,20 +885,22 @@ class DB:
         return self.cursor.fetchall()
 
     def add_smile(self, field, post_id, current_user, user_id):
-        self.cursor.execute(
-            f'SELECT COUNT(*) as cnt FROM reactions WHERE user_id = {current_user.get_id()} AND post_id = {post_id}')
-        res1 = self.cursor.fetchone()['cnt']
-        if res1 == 0 and user_id != current_user.get_id():
-            self.cursor.execute(f'UPDATE posts SET {field} = {field} + 1 WHERE id = "{post_id}"')
-            self.connect.commit()
+        if current_user.is_authenticated:
+            self.cursor.execute(
+                f'SELECT COUNT(*) as cnt FROM reactions WHERE user_id = {current_user.get_id()} AND post_id = {post_id}')
+            res1 = self.cursor.fetchone()['cnt']
+            if res1 == 0 and user_id != current_user.get_id():
+                self.cursor.execute(f'UPDATE posts SET {field} = {field} + 1 WHERE id = "{post_id}"')
+                self.connect.commit()
 
-            self.cursor.execute(f'''INSERT INTO reactions (user_id, post_id, reaction)
-                                    VALUES ("{current_user.get_id()}", {post_id}, "{field}")''')
-            self.connect.commit()
-            return False
-        if res1 == 0:
-            return 'Нельзя поставить реакцию себе!'
-        return 'Установлен лимит на 1 реакцию!'
+                self.cursor.execute(f'''INSERT INTO reactions (user_id, post_id, reaction)
+                                        VALUES ("{current_user.get_id()}", {post_id}, "{field}")''')
+                self.connect.commit()
+                return False
+            if res1 == 0:
+                return 'Нельзя поставить реакцию себе!'
+            return 'Установлен лимит на 1 реакцию!'
+        return 'Необходимо зарегистрироваться!'
 
     def get_count_posts(self):
         self.cursor.execute('SELECT COUNT(*) FROM POSTS')

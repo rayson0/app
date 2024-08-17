@@ -60,11 +60,14 @@
         <div class = 'select_filter'>
           {{form.select_sort()}}
         </div>
+        <div class = 'select_filter2'>
+          {{form.select_sort(id = 'select_sort2')}}
+        </div>
         <div class = 'submit_menu_filter'>
           {{form.submit_filter(class = 'hover_submit')}}
         </div>
       </form>
-      <div style = 'width: calc(100% - 14em);'>
+      <div style = 'width: calc(100%);'>
         <div class = 'content_request_search_div'>
           {% for post in posts %}
             <div class = 'post_mini_div' id = 'post_number_{{post["id"]}}'>
@@ -185,16 +188,6 @@
         {% endif %}
       {% endfor %}
     {% endif %}
-
-    smiles = document.getElementsByClassName('smile_div')
-    for (i = 0; i < smiles.length; i += 7){
-      smiles[i].style.marginRight = '0.8vw';
-    }
-    for (i = 1; i < smiles.length; i ++){
-      if (i % 7 != 0){
-        smiles[i].style.margin = '0 0.8vw';
-      }
-    }
 
 
   </script>

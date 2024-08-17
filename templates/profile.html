@@ -45,6 +45,12 @@
     </div>
     <div class = 'window_profile_div'>
       {% block window %}
+        <div class = 'content_window_menu_profile_div'>
+          <button class = 'window_menu_profile_btn'>
+          </button>
+          <div class = 'window_menu_profile_div'>
+          </div>
+        </div>
         <div class = 'info_profile_div'>
           <a class = 'avatar_div' href = 'change_avatar'>
             <img src = '{{current_user.get_avatar()}}' class = 'avatar_profile_page'>

@@ -71,7 +71,7 @@ form, .card_of_friend_div, .card_of_prop_friend_div, .card_of_request_friend_div
   align-items: center;
   justify-content: center;
 }
-p, input, button, a, span, label, textarea {
+p, input, button, a, span, label, textarea, select {
   font-family: 'Rubik';
 }
 h1 {
@@ -86,10 +86,10 @@ h1 {
 h2 {
   font-size: calc(33px);
 }
-span, label {
+span, label, input, textarea, select {
   font-size: calc(12.6px);
 }
-p {
+p, a {
   font-size: calc(16px);
 }
 h3 {
@@ -194,18 +194,27 @@ a {
 .header a {
   color: white;
 }
-.msg, .subject, .password, .password1, .password2, .name, .form_support select, .tags, .header_of_post, .number, .email, .fio, .about_me {
-  transition: .5s linear;
+.msg, .subject, .password, .password1, .password2, .name,
+.tags, .header_of_post, .number, .email, .fio, .about_me, .info {
+  transition: .4s linear;
   border: none;
   border: 2px solid grey;
   margin: auto 0;
 }
-.name, .subject, .msg, .info, .password, .tags, .header_of_post, .number, .email, .fio {
+.name, .subject, .msg, .info, .password, .tags, .header_of_post, .number,
+.email, .fio {
   width: calc(150px + 8.5vw);
   border-radius: 0.6vw;
+  margin-left: 13px;
 }
-.name, .info, .password, .subject, .header_of_post, .number, .email, .fio {
+.name, .info, .password, .subject, .header_of_post, .number, .email, .fio, .msg {
   padding: calc(1.2em + 0.23vw) calc(1.2em + 0.4vw);
+}
+.radio_reg, #radio {
+  width: calc(150px + 8.5vw + 2.4em + 0.8vw);
+}
+.radio_reg {
+  margin-left: 12px;
 }
 .about_me {
   width: calc(220px + 10vw);
@@ -214,7 +223,6 @@ a {
   border-radius: .4vw;
 }
 .msg {
-  padding: 0.5vw calc(1.2em + 0.4vw);
   height: calc(9em + 0.5vw)
 }
 .tags {
@@ -232,7 +240,7 @@ a {
   border-radius: 0.8vw;
   color: white;
   min-width: calc(7em + 1.4vw);
-  padding: calc(1.2em + 0.4vw) calc(0.8em + 0.3vw);
+  padding: calc(1.1em + 0.4vw) calc(0.8em + 0.3vw);
   border: none;
 }
 .info {
@@ -242,8 +250,9 @@ a {
   outline: none;
   border: 2px solid #7003e7;
 }
-.error_div, .profile_support_main_div, .content_friend_div {
-  margin-top: 12em
+.error_div, .content_friend_div {
+  margin-top: calc(18vh);
+  padding: 30px 0;
 }
 .error_div {
   display: flex;
@@ -255,10 +264,9 @@ a {
 }
 .error_img {
   width: 12em;
-  margin-bottom: 2em;
 }
 .fast_messages {
-  padding: calc(1em + 0.2vw);
+  padding: 0 1vw calc(1em + 0.2vw) 1vw;
 }
 .fast_messages_error, .fast_messages_success {
   margin-top: 1em;
@@ -278,10 +286,12 @@ a {
   padding: 1vw;
 }
 .menu_password_div {
-  margin: 0 1vw;
-  padding: 0.5vw 0;
+  padding: 0.5vw 1vw;
 }
-.menu_password_div li {
+.number_choice_of_post {
+  width: 45px;
+}
+.line_menu_password_div {
   padding: 0.3vw 0;
 }
 .main_form_div {
@@ -289,7 +299,7 @@ a {
 }
 .line_in_form p, .line_in_form_add_post p {
   margin: auto 0;
-  width: 30%;
+  width: 25%;
 }
 .block_radio_reg ul {
   display: flex;
@@ -301,11 +311,12 @@ a {
 .block_radio_reg {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .see_password {
   width: calc(1.8em + 0.3vw);
   height: calc(1.8em + 0.3vw);
-  margin: auto 0 auto 0.5vw;
+  margin: auto 0 auto 0.6vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -321,7 +332,7 @@ a {
 .form_reg, .form_login, .form_support {
   width: calc(290px + 20vw);
   padding: 1vw 0;
-  margin: 12em 0 2em 0;
+  margin: calc(18vh + 30px) 0 30px 0;
   display: flex;
   flex-direction: column;
 }
@@ -379,8 +390,9 @@ a {
 .profile_main_div {
   display: flex;
   flex-direction: row;
-  width: calc(100% - 10em);
-  margin: 12em auto 0 auto;
+  width: calc(100% - 9.5em);
+  margin: calc(18vh) auto 0 auto;
+  padding-top: 30px;
 }
 .menu_profile_form {
   border-radius: .4vw;
@@ -400,7 +412,7 @@ a {
    padding-top: calc(0.1em + 1vw);
  }
  .menu_profile_div {
-   margin: 0 1em;
+   margin-right: 1em;
    display: flex;
    flex-direction: column;
    width: 18%;
@@ -424,7 +436,7 @@ a {
   background-color: white;
   box-shadow: 0 0 2em #cecece;
   width: 100%;
-  margin: 0 1em 2em 1em;
+  margin: 0 0 2em 1em;
   min-height: 100vh;
   padding: 1em 2em;
 }
@@ -459,7 +471,7 @@ a {
 }
 .img_arrow {
   transform: rotate(90deg);
-  width: calc(1.4em + 0.2vw)
+  width: 24px;
 }
 .content_support_div {
   flex-direction: column;
@@ -638,8 +650,14 @@ a {
   border-top-right-radius: 0.4vw;
   border-bottom-right-radius: 0.4vw;
 }
+.window_menu_profile_div {
+  display: none;
+  flex-direction: column;
+  border-radius: 0.4vw;
+}
 .form_read_posts {
-  margin: 12em 0 3em 0;
+  margin-top: calc(18vh);
+  padding: 30px 0;
 }
 .search_field {
   border-radius: 0.4vw;
@@ -677,7 +695,7 @@ a {
   flex-direction: row;
   justify-content: space-between;
   height: 3em;
-  padding: 0 1.5em;
+  padding: 0 1em;
   align-items: center;
   transition: .2s linear;
 }
@@ -713,15 +731,15 @@ a {
   margin-top: 6px;
 }
 .checkbox_filter {
-  margin: 1em 0 0 1.5em;
+  margin: 1em 0 0 1em;
 }
-.checkbox_filter2, .select_filter {
-  margin: 0.5em 0 0 1.5em;
+.checkbox_filter2 {
+  margin: 0.5em 0 0 1em;
 }
 .select_filter {
   position: absolute;
-  top: 12.5em;
-  right: 6em;
+  top: calc(18vh + 30px);
+  right: 5vw;
 }
 .post_div {
   border-radius: 0.4vw;
@@ -739,7 +757,7 @@ a {
 .post_mini_div {
   border-radius: 0.4vw;
   box-shadow: 0 0 1em #dfdfdf;
-  width: calc(33.3% - 2em);
+  width: calc(50% - 2em);
   margin: 0 1em;
   display: flex;
   flex-direction: column;
@@ -812,6 +830,7 @@ option:focus {
 .smiles {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   margin-top: 1em;
 }
 .smile_div {
@@ -821,16 +840,19 @@ option:focus {
   box-shadow: none;
 }
 .smile_div span {
-  margin-left: 0.5em;
+  margin-left: 3.5px;
 }
 .smile_img, .smile_img_full_post {
   background: none;
   border: none;
 }
 .smile_img_div, .smile_img {
-  width: 19px;
-  height: 19px;
+  width: 21px;
+  height: 21px;
   cursor: pointer;
+}
+.smile_div {
+  margin: 0 22px 10px 0;
 }
 .smile_img_div_full_post {
   width: 27px;
@@ -855,7 +877,7 @@ option:focus {
 .fast_messages_post {
   display: flex;
   align-items: center;
-  height: 3em;
+  height: 36px;
 }
 .read_yet {
   margin-top: 1em;
@@ -864,11 +886,15 @@ option:focus {
   color: #7003e7;
 }
 .content_choice_of_post {
-  margin: 12em auto 3em auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   width: calc(320px + 20vw);
   padding: 1vw;
+}
+.main_choice_of_post {
+  margin: calc(18vh) 0 30px 0;
+  padding-top: 30px
 }
 .btn_choice_post {
   width: 11em;
@@ -962,6 +988,10 @@ option:focus {
   flex-direction: column;
 }
 .fio_inputs_settings {
+  display: flex;
+  flex-direction: column;
+}
+.not_found_friends_div {
   display: flex;
   flex-direction: column;
 }
@@ -1094,17 +1124,23 @@ option:focus {
   font-weight: bold;
 }
 .about_me_profile_div, .fio_profile_div, .number_profile_div, .email_profile_div, .login_profile_div {
-  width: calc(50% - 6em);
+  width: calc(50% - 4em);
   box-shadow: 0 0 1em #d1d1d1;
   border-radius: .4vw;
-  margin: 1.5em;
   padding: 1em 1.5em;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
+.login_profile_div, .number_profile_div {
+  margin: 1em 1em 1em 0;
+}
+.fio_profile_div, .email_profile_div {
+  margin: 1em 0 1em 1em;
+}
 .about_me_profile_div {
   width: 100%;
+  margin-top: 1em;
 }
 .text_in_div_profile {
   margin-top: 1em;
@@ -1301,10 +1337,10 @@ option:focus {
   flex-direction: row;
 }
 .type_post_iconic_img {
-  width: 2em;
+  width: 32px;
   position: absolute;
-  top: 0.5em;
-  right: 0.5em;
+  top: 8px;
+  right: 8px;
 }
 .progress_achies_div {
   display: none;
@@ -1317,7 +1353,7 @@ option:focus {
   margin-left: 0.6em;
 }
 .sad_boy_find_friend_img {
-  width: 13em;
+  width: 12em;
   margin-top: 2em;
 }
 .not_found_friends_div {
@@ -1338,20 +1374,22 @@ option:focus {
   flex-direction: column;
   border-radius: .4vw;
 }
-.find_friends_btn_menu_header, .read_post_btn_menu_header, .add_post_btn_menu_header {
+.wave1, .wave2 {
   transition: .2s linear;
   padding: 7px 15px;
   text-align: left;
   border: none;
   background: white;
 }
-.find_friends_btn_menu_header:hover, .read_post_btn_menu_header:hover,
-.add_post_btn_menu_header:hover{
+.wave1:hover, .wave2:hover{
   background: #e6e6e6;
 }
-.add_post_btn_menu_header {
+.add_post_btn_menu_header, .user_btn_menu_header {
   border-top-left-radius: .4vw;
   border-top-right-radius: .4vw;
+}
+.menu_links_header_text_div {
+  background: white;
 }
 .find_friends_btn_menu_header {
   border-bottom-left-radius: .4vw;
@@ -1398,6 +1436,21 @@ body {
 .dignity2, .dignity3, .dignity4, .dignity5, .dignity6 {
   margin: 1em 0 0 0;
 }
+.line_menu_password_text {
+  width: calc(100% - 1em - 1.7vw)
+}
+.select_filter2 {
+  display: none;
+}
+.window_menu_profile_btn {
+  background-image: '/static/images/menu_iconic_white.png';
+  background-size: 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 60px;
+  height: 30px;
+  position: absolute;
+}
 @media (max-width: 1450px){
   .text_link_header {
     display: none;
@@ -1408,8 +1461,27 @@ body {
   .menu_links_header_div {
     display: flex;
   }
+  .profile_main_div {
+    width: calc(100% - 6em);
+  }
 }
 @media (max-width: 1224px){
+  .login_profile_div, .number_profile_div {
+    margin: 0.75em 0.75em 0.75em 0;
+  }
+  .fio_profile_div, .email_profile_div {
+    margin: 0.75em 0 0.75em 0.75em;
+  }
+  .about_me_profile_div {
+    margin-top: 0.75em;
+  }
+  .fio_profile_div, .number_profile_div, .email_profile_div,
+  .login_profile_div {
+    width: calc(50% - 3.75em)
+  }
+  .profile_main_div {
+    width: calc(100% - 55px);
+  }
   .desc_index_div {
     flex-direction: column-reverse;
     width: 500px;
@@ -1475,7 +1547,7 @@ body {
   h2 {
     font-size: calc(29.9px);
   }
-  span, label {
+  span, label, input, textarea, select {
     font-size: calc(11.4px);
   }
   p, a {
@@ -1488,9 +1560,169 @@ body {
     top: calc(9vh + 36px);
     width: 170px;
   }
+  .line_menu_password_div {
+    padding: 7px 0;
+  }
+  .menu_profile_div {
+    margin-right: 12px;
+  }
+  .window_profile_div {
+    margin-left: 12px;
+    padding: 12px 24px;
+  }
 }
 
 @media (min-device-width: 768px) and (max-device-width: 1024px) {
+  form, .card_of_friend_div, .card_of_prop_friend_div, .card_of_request_friend_div,
+  .content_choice_of_post {
+    border-radius: 7px;
+  }
+  .window_menu_profile_btn {
+    border-radius: 7px;
+  }
+  .window_menu_profile_div {
+    border-radius: 7px;
+  }
+  .exit_link {
+    border-bottom-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+  }
+  .page_link {
+    border-top-right-radius: 7px;
+    border-top-left-radius: 7px;
+  }
+  .menu_profile_form {
+    border-radius: 7px;
+  }
+  .window_profile_div {
+    border-radius: 7px;
+  }
+  .search_div {
+    border-radius: 7px;
+  }
+  #search_btn {
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+  }
+  #submit {
+    border-radius: 7px;
+  }
+  .search_field {
+    border-radius: 7px;
+  }
+  #submit_filter, #join_index_btn {
+    border-radius: 7px;
+  }
+  .post_div {
+    border-radius: 7px;
+  }
+  .post_mini_div {
+    border-radius: 7px;
+  }
+  .footer_post {
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+  }
+  .footer_post_profile {
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+  }
+  .footer_full_post {
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+  }
+  .btn_choice_post {
+    border-radius: 7px;
+  }
+  .body_post {
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+  }
+  .body_full_post {
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+  }
+  .achie_div {
+    border-radius: 7px;
+  }
+  .about_me_profile_div, .fio_profile_div, .number_profile_div,
+  .email_profile_div, .login_profile_div {
+    border-radius: 7px;
+  }
+  .btn_in_div_profile {
+    border-radius: 7px;
+    padding: 9px;
+  }
+  .agree_request_friend_btn, .against_request_friend_btn, .delete_friend_btn {
+    border-radius: 7px;
+  }
+  .menu_links_header_text_div {
+    border-radius: 7px;
+  }
+  .add_post_btn_menu_header, .user_btn_menu_header {
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+  }
+  .find_friends_btn_menu_header {
+    border-bottom-left-radius: none;
+    border-bottom-right-radius: none;
+  }
+  .login_btn_menu_header {
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+  }
+  .name, .subject, .msg, .info, .password, .tags, .header_of_post, .number,
+  .email, .fio {
+    border-radius: 8.5px;
+  }
+  .login_profile_div, .number_profile_div {
+    margin: 9px 9px 9px 0;
+  }
+  .fio_profile_div, .email_profile_div {
+    margin: 9px 0 9px 9px;
+  }
+  .about_me_profile_div {
+    margin-top: 9px;
+  }
+  .fio_profile_div, .number_profile_div, .email_profile_div,
+  .login_profile_div {
+    width: calc(50% - 39px);
+  }
+  .fio_profile_div, .number_profile_div, .email_profile_div,
+  .login_profile_div, .about_me_profile_div {
+    padding: 10px 15px;
+  }
+  .menu_profile_div {
+    margin-right: 9px;
+  }
+  .window_profile_div {
+    margin-left: 9px;
+    padding: 9px 18px;
+  }
+  .img_arrow {
+    width: 22.5px;
+  }
+  .type_post_iconic_img {
+    width: 27px;
+  }
+  .msg, .subject, .password, .password1, .password2, .name, .tags,
+  .header_of_post, .number, .email, .fio, .about_me, .info {
+    border: 1.9px solid grey
+  }
+  .input_field:focus {
+    outline: none;
+    border: 1.9px solid #7003e7;
+  }
+  #submit {
+    padding: calc(14px) 12px;
+  }
+  .name, .info, .password, .subject, .header_of_post, .number, .email,
+  .fio, .msg {
+    padding: calc(14px) calc(15px);
+  }
+  .radio_reg, #radio {
+    width: calc(150px + 8.5vw + 30px);
+  }
   .img_link_header {
     width: 36.5px;
   }
@@ -1519,10 +1751,24 @@ body {
     width: 130px;
   }
   .form_reg, .form_login, .form_support {
-    margin: 150px 0 20px 0
+    margin: 160px 0 30px 0;
+  }
+  .form_read_posts {
+    margin-top: 130px;
   }
   .post_div {
-    margin: 150px auto 20px auto;
+    margin: 160px auto 30px auto;
+  }
+  .profile_main_div {
+    width: calc(100% - 33px);
+    margin: 130px auto 30px auto;
+    padding-top: 30px;
+  }
+  .main_choice_of_post {
+    margin: 130px 0 30px 0;
+  }
+  .error_div, .content_friend_div {
+    margin-top: calc(130px);
   }
   h1 {
     font-family: 'Gropled';
@@ -1536,14 +1782,18 @@ body {
   h2 {
     font-size: calc(27.8px);
   }
-  span, label {
-    font-size: calc(10.6px);
+  span, label, input, textarea, select {
+    font-size: calc(10.7px);
   }
   p, a {
     font-size: calc(13.4px);
   }
   h3 {
     font-size: calc(19.5px);
+  }
+  input[type="checkbox"], input[type="radio"] {
+    width: 12px;
+    height: 12px;
   }
   .dignity_index_img {
     width: 27px;
@@ -1570,9 +1820,95 @@ body {
   .connect_div {
     margin-left: 1em;
   }
+  .line_menu_password_div {
+    padding: 6px 0;
+  }
+  .filter_search_div {
+    padding-right: 15px;
+    border-right: 1px solid grey;
+    width: 165px;
+  }
+  .content_search_div {
+    width: calc(100vw - 55px)
+  }
+  .select_filter {
+    position: absolute;
+    top: calc(130px + 30px);
+    right: 27.5px;
+  }
+  .content_request_search_div {
+    padding-left: 5px;
+  }
+  .post_mini_div {
+    width: calc(50% - 20px);
+    margin: 0 10px;
+  }
+  .line_in_menu_filter {
+    padding: 0;
+  }
+  .checkbox_filter {
+    margin: 16px 0 8px 0;
+  }
+  .checkbox_filter2 {
+    margin: 0;
+  }
+  .smile_div {
+    margin: 0 20px 10px 0;
+  }
+  .btn_choice_post {
+    width: 115px;
+    padding: 1em 0;
+  }
+  .comment_choice_of_post_div {
+    width: 250px;
+    margin-left: auto;
+  }
 }
 
 @media (max-width: 767px){
+  .comment_choice_of_post_div {
+    width: 235px;
+    margin-left: auto;
+  }
+  .btn_choice_post {
+    width: 95px;
+    padding: 1em 0;
+  }
+  .btn_in_div_profile {
+    border-radius: 6px;
+    padding: 6px;
+  }
+  .window_menu_profile_btn {
+    border-radius: 6px;
+  }
+  .img_arrow {
+    width: 21px;
+  }
+  .type_post_iconic_img {
+    width: 24px;
+  }
+  .smile_div {
+    margin: 0 18px 10px 0;
+  }
+  .name, .info, .password, .subject, .header_of_post, .number, .email, .fio {
+    padding: calc(11px) calc(10.5px);
+  }
+  .radio_reg, #radio {
+    width: calc(150px + 8.5vw + 21px);
+  }
+  .msg, .subject, .password, .password1, .password2, .name,
+  .tags, .header_of_post, .number, .email, .fio, .about_me, .info {
+    border: 1.5px solid grey;
+  }
+  .input_field:focus {
+    outline: none;
+    border: 1.5px solid #7003e7;
+  }
+  .see_password {
+    width: 23px;
+    height: 23px;
+    margin: auto 0 auto 6px;
+  }
   form, .card_of_friend_div, .card_of_prop_friend_div, .card_of_request_friend_div,
   .content_choice_of_post {
     border-radius: 6px;
@@ -1580,6 +1916,9 @@ body {
   .exit_link {
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
+  }
+  .window_menu_profile_div {
+    border-radius: 6px;
   }
   .page_link {
     border-top-right-radius: 6px;
@@ -1601,7 +1940,7 @@ body {
   #submit {
     border-radius: 6px;
     min-width: calc(95px);
-    padding: calc(10px) 0;
+    padding: calc(10px) 7px;
   }
   .search_field {
     border-radius: 6px;
@@ -1612,7 +1951,7 @@ body {
   .post_div {
     border-radius: 6px;
     width: calc(100% - 14vw);
-    margin: 120px auto 15px auto;
+    margin: 135px auto 30px auto;
     box-shadow: 0 0 20px #ababab;
   }
   .post_mini_div {
@@ -1660,11 +1999,15 @@ body {
   .menu_links_header_text_div {
     border-radius: 6px;
   }
-  .add_post_btn_menu_header {
+  .add_post_btn_menu_header, .user_btn_menu_header {
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
   }
   .find_friends_btn_menu_header {
+    border-bottom-left-radius: none;
+    border-bottom-right-radius: none;
+  }
+  .login_btn_menu_header {
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
   }
@@ -1682,13 +2025,27 @@ body {
     height: calc(100vh - 105px);
   }
   .form_reg, .form_login, .form_support {
-    margin: 120px 0 15px 0;
+    margin: 135px 0 30px 0;
+  }
+  .form_read_posts {
+    margin: 105px 0 0 0;
+  }
+  .profile_main_div {
+    width: calc(100% - 30px);
+    margin: 105px auto 30px auto;
+    padding-top: 30px;
+  }
+  .main_choice_of_post {
+    margin: 105px 0 30px 0;
+  }
+  .error_div, .content_friend_div {
+    margin-top: calc(105px);
   }
   .menu_links_header_text_div {
     top: calc(74.5px);
     max-width: 110px;
   }
-  .support_link, .reg_link, .login_link {
+  .support_link, .reg_link, .login_link, .profile_link {
     display: none;
   }
   .menu_links_header_div {
@@ -1709,14 +2066,18 @@ body {
   h2 {
     font-size: calc(24.2px);
   }
-  span, label {
-    font-size: calc(9.1px);
+  span, label, input, textarea, select {
+    font-size: calc(9.2px);
   }
   p, a {
     font-size: calc(11.6px);
   }
   h3 {
     font-size: calc(16.9px);
+  }
+  input[type="checkbox"], input[type="radio"] {
+    width: 10px;
+    height: 10px;
   }
   .dignity_index_img {
     width: 24px;
@@ -1745,103 +2106,168 @@ body {
     max-width: 700px;
     width: calc(100vw - 50px)
   }
+  .line_in_form, .line_in_form_add_post, .remember_checkbox, .menu_password_div {
+    padding: 14px;
+  }
+  .fast_messages {
+    padding: 0 14px 14px 14px;
+  }
+  #submit {
+    margin-left: 14px;
+  }
+  .form_reg h2, .form_login h2, .form_support h2, .form_add_post h2 {
+    padding: 0 14px 5px 14px;
+  }
+  .line_menu_password_div {
+    padding: 4px 0;
+  }
+  .filter_search_div {
+    padding-right: 15px;
+    border-right: 1px solid grey;
+    width: 160px;
+  }
+  .select_filter {
+    position: absolute;
+    top: calc(105px + 30px);
+    right: 17.5px;
+  }
+  .content_search_div {
+    width: calc(100vw - 35px)
+  }
+  .content_request_search_div {
+    flex-wrap: wrap;
+    padding: 0;
+  }
+  .post_mini_div {
+    width: calc(100%);
+    margin: 0 0 14px 15px;
+  }
+  .line_in_menu_filter {
+    padding: 0;
+  }
+  .checkbox_filter {
+    margin: 12px 0 7px 0;
+  }
+  .checkbox_filter2 {
+    margin: 0;
+  }
+  #select_sort {
+    width: 80px;
+  }
+  .smile_img_div, .smile_img {
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+  }
+  .login_profile_div, .number_profile_div {
+    margin: 6px 6px 6px 0;
+  }
+  .fio_profile_div, .email_profile_div {
+    margin: 6px 0 6px 6px;
+  }
+  .about_me_profile_div {
+    margin-top: 6px;
+  }
+  .fio_profile_div, .number_profile_div, .email_profile_div,
+  .login_profile_div, .about_me_profile_div {
+    width: calc(50% - 26px);
+    padding: 6px 10px;
+  }
+  .about_me_profile_div  {
+    width: 100%;
+  }
+  .menu_profile_div {
+    display: none;
+  }
+  .window_profile_div {
+    padding: 10px 13px;
+    width: calc(100% - 26px);
+    margin: 0;
+    min-height: auto;
+  }
+  .number_choice_of_post {
+    width: 31px;
+  }
 }
 
 @media (max-width: 478px){
-  form, .card_of_friend_div, .card_of_prop_friend_div, .card_of_request_friend_div,
-  .content_choice_of_post {
-    border-radius: 6px;
+  .number_choice_of_post {
+    width: calc(13px + 4vw);
   }
-  .exit_link {
-    border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 6px;
+  .comment_choice_of_post_div {
+    width: calc(66px + 35vw);
+    margin-left: auto;
   }
-  .page_link {
-    border-top-right-radius: 6px;
-    border-top-left-radius: 6px;
+  .btn_choice_post {
+    width: calc(46px + 6vw);
+    padding: 1em 0;
   }
-  .menu_profile_form {
-    border-radius: 6px;
+  .sad_boy_find_friend_img, .error_img {
+    width: 9em;
   }
-  .window_profile_div {
-    border-radius: 6px;
+  .profile_main_div {
+    width: calc(100% - 5px);
+    margin: 105px auto 30px auto;
   }
-  .search_div {
-    border-radius: 6px;
+  .img_arrow {
+    width: 19.5px;
   }
-  #search_btn {
-    border-top-right-radius: 6px;
-    border-bottom-right-radius: 6px;
+  .type_post_iconic_img {
+    width: 21px;
+  }
+  .smile_div {
+    margin: 0 16px 10px 0;
+  }
+  .smile_img_div, .smile_img {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+  .img_menu_password {
+    width: 13px;
+    height: 13px;
+  }
+  .line_menu_password_text {
+    width: calc(100% - 23px)
+  }
+  .line_in_form, .line_in_form_add_post, .menu_password_div {
+    padding: 17px;
+  }
+  .remember_checkbox {
+    padding: 0 17px 17px 17px;
+  }
+  .fast_messages {
+    padding: 0 17px 17px 17px;
   }
   #submit {
-    border-radius: 6px;
-    min-width: calc(95px);
-    padding: calc(10px) 0;
+    margin-left: 17px;
   }
-  .search_field {
-    border-radius: 6px;
+  .form_reg h2, .form_login h2, .form_support h2, .form_add_post h2 {
+    padding: 0 17px 5px 17px;
   }
-  #submit_filter, #join_index_btn {
-    border-radius: 6px;
+  .see_password {
+    width: 20px;
+    height: 20px;
+    margin: auto 0 auto 5px;
+  }
+  #submit {
+    min-width: calc(78px);
+    padding: calc(7px) 5px;
   }
   .post_div {
-    border-radius: 6px;
     width: calc(100% - 14vw);
     margin: 120px auto 15px auto;
     box-shadow: 0 0 20px #ababab;
   }
   .post_mini_div {
-    border-radius: 6px;
     box-shadow: 0 0 10px #dfdfdf;
   }
-  .footer_post {
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-  }
-  .footer_post_profile {
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-  }
-  .footer_full_post {
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-  }
-  .btn_choice_post {
-    border-radius: 6px;
-  }
-  .body_post {
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-  }
-  .body_full_post {
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-  }
   .achie_div {
-    border-radius: .6px;
     box-shadow: 0 0 10px #d1d1d1;
   }
   .about_me_profile_div, .fio_profile_div, .number_profile_div,
   .email_profile_div, .login_profile_div {
     box-shadow: 0 0 10px #d1d1d1;
-    border-radius: 6px;
-  }
-  .btn_in_div_profile {
-    border-radius: 6px;
-  }
-  .agree_request_friend_btn, .against_request_friend_btn, .delete_friend_btn {
-    border-radius: 6px;
-  }
-  .menu_links_header_text_div {
-    border-radius: 6px;
-  }
-  .add_post_btn_menu_header {
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-  }
-  .find_friends_btn_menu_header {
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
   }
   .menu_links_header_img {
     width: 20.5px;
@@ -1871,14 +2297,18 @@ body {
   h2 {
     font-size: calc(20.2px);
   }
-  span, label {
-    font-size: calc(8.4px);
+  span, label, input, textarea, select {
+    font-size: calc(8.5px);
   }
   p, a {
     font-size: calc(10.4px);
   }
   h3 {
     font-size: calc(14.5px);
+  }
+  input[type="checkbox"], input[type="radio"] {
+    width: 9.5px;
+    height: 9.5px;
   }
   .clients_div {
     margin: 0 0 0 1em;
@@ -1896,9 +2326,72 @@ body {
   .dignity2, .dignity3, .dignity5, .dignity4, .dignity6 {
     margin: 11px 0 0 0;
   }
+  .form_reg, .form_login, .form_support {
+    padding: 12px 0;
+  }
+  .form_reg, .form_login, .form_support, .content_choice_of_post {
+    width: calc(100vw - 36px)
+  }
+  .line_in_form p, .line_in_form_add_post p {
+    width: calc(65px + 3vw);
+  }
+  .name, .subject, .msg, .info, .password, .tags, .header_of_post,
+  .number, .email, .fio {
+     width: calc(115px + 9vw);
+  }
+ .radio_reg, #radio {
+   width: calc(115px + 9vw + 21px);
+ }
+ #radio {
+   flex-direction: column;
+ }
+ .select_filter {
+   display: none;
+ }
+ .select_filter2 {
+   display: block;
+   margin-top: 12px;
+ }
+ .filter_search_div {
+   padding-right: 10px;
+   border-right: 1px solid grey;
+   width: 140px;
+ }
+ .content_search_div {
+   width: calc(100vw - 24px)
+ }
+ .content_request_search_div {
+   flex-wrap: wrap;
+   padding: 0;
+ }
+ .post_mini_div {
+   width: calc(100%);
+   margin: 0 0 11px 10px;
+ }
 }
 
 @media (max-width: 374px){
+  .img_arrow {
+    width: 18px;
+  }
+  .type_post_iconic_img {
+    width: 19px;
+  }
+  .smile_img_div, .smile_img {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+  }
+  .line_in_form p, .line_in_form_add_post p {
+    width: calc(48px + 4vw);
+  }
+  .name, .subject, .msg, .info, .password, .tags, .header_of_post,
+  .number, .email, .fio {
+    width: calc(87px + 10vw)
+  }
+  .radio_reg, #radio {
+    width: calc(87px + 10vw + 21px);
+  }
   .menu_links_header_img {
     width: 18.5px;
     height: 18.5px;
@@ -1923,14 +2416,18 @@ body {
   h2 {
     font-size: calc(19.1px);
   }
-  span, label {
-    font-size: calc(8.2px);
+  span, label, input, textarea, select {
+    font-size: calc(8.3px);
   }
   p, a {
     font-size: calc(10.2px);
   }
   h3 {
     font-size: calc(14.2px);
+  }
+  input[type="checkbox"], input[type="radio"] {
+    width: 9px;
+    height: 9px;
   }
 }
 /* display: flex;

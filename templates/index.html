@@ -112,6 +112,11 @@
             <span class = 'menu_links_header_span'> Меню </span>
           </button>
           <div class = 'menu_links_header_text_div'>
+            {% if current_user.is_authenticated %}
+            <a class = 'user_btn_menu_header wave1' href = '/profile/{{current_user.get_name()}}/page'>
+              <span class = 'menu_header_a'> Профиль </span>
+            </a>
+            {% endif %}
             <a class = 'add_post_btn_menu_header wave1' href = '/choice_of_post'>
               <span class = 'menu_header_a'> Добавить публикацию </span>
             </a>
@@ -121,13 +126,13 @@
             <a class = 'find_friends_btn_menu_header wave1' href = '/find_friends'>
               <span class = 'menu_header_a'> Найти друзей </span>
             </a>
-            <a class = 'find_friends_btn_menu_header wave2' href = '/support'>
+            <a class = 'support_btn_menu_header wave2' href = '/support'>
               <span class = 'menu_header_a'> Обратная связь </span>
             </a>
-            <a class = 'find_friends_btn_menu_header wave2' href = '/reg'>
+            <a class = 'reg_btn_menu_header wave2' href = '/reg'>
               <span class = 'menu_header_a'> Регистрация </span>
             </a>
-            <a class = 'find_friends_btn_menu_header wave2' href = '/login'>
+            <a class = 'login_btn_menu_header wave2' href = '/login'>
               <span class = 'menu_header_a'> Войти </span>
             </a>
           </div>
