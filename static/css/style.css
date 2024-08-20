@@ -18,6 +18,9 @@
   src: url('/static/fonts/Jost-VariableFont_wght.ttf');
   font-family: 'Jost';
 }
+input[type='button'], input[type='submit'] {
+  font-weight: 400;
+}
 section {
   height: calc(82vh);
 }
@@ -661,7 +664,7 @@ a {
   border-top-right-radius: 0.4vw;
   border-bottom-right-radius: 0.4vw;
 }
-.footer_help_btn:link, .footer_help_btn:visited {
+.footer_help_btn p {
   color: inherit;
 }
 .window_menu_profile_div {
@@ -2635,6 +2638,9 @@ body {
     top: 14px;
     right: 14px;
   }
+  .fio {
+    margin-left: 0;
+  }
 }
 
 @media (max-width: 478px){
@@ -3164,15 +3170,3 @@ body {
     height: 9px;
   }
 }
-/* display: flex;
-flex-direction: column;
-justify-content: center;
-background-color: black;
-background-image: url('/static/images/menu_iconic.png');
-background-size: 40px 40px;
-background-position: center;
-background-repeat: no-repeat;
-border: none;
-width: 113px;
-height: 113px;
-border-radius: 15%; */
