@@ -515,19 +515,12 @@ a {
   height: calc(9em + 1vw);
   border-radius: 50%;
 }
-.avatar_div {
-  width: calc(10em + 1.1vw);
-  margin: 0 1em;
-}
 .plus_profile_page {
   position: absolute;
-  right: 7%;
-  bottom: 7%;
+  right: 5%;
+  bottom: 5%;
   width: calc(0.9em + 0.1vw);
   height: calc(0.9em + 0.1vw);
-}
-.avatar_div {
-  position: relative;
 }
 .form_avatar {
   display: block;
@@ -539,13 +532,26 @@ a {
   transform: translate(-50%, -50%);
   box-shadow: 0 0 100vw 0 #6e6e6e;
   z-index: 3;
+  width: calc(280px + 20vw)
 }
 .avatars_div {
-  margin-top: 1em;
+  margin: 1em auto 0 auto;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: calc(24em + 2.7vw);
+  width: calc(100%);
+}
+.avatar_div {
+  position: relative;
+}
+.avatar_form_div {
+  width: calc(50% - 1em);
+}
+.avatar_form_div:nth-child(odd) {
+  margin: 0 1em 1em 0;
+}
+.avatar_form_div:nth-child(even) {
+  margin: 0 0 1em 1em;
 }
 .field_with_tags {
   display: flex;
@@ -649,9 +655,14 @@ a {
   height: calc(2.5em + 0.3vw);
   background-size: 85%;
   background-position: center;
+  background-repeat: no-repeat;
+  background-color: #7003e7;
   border: none;
   border-top-right-radius: 0.4vw;
   border-bottom-right-radius: 0.4vw;
+}
+.footer_help_btn:link, .footer_help_btn:visited {
+  color: inherit;
 }
 .window_menu_profile_div {
   display: none;
@@ -1176,7 +1187,7 @@ option:focus {
   transform: translate(-50%, -50%);
   width: calc(250px + 15vw);
   z-index: 10;
-  box-shadow: 0 0 100vw 0 #6e6e6e,
+  box-shadow: 0 0 100vw 0 #4f4f4ff,
               inset 0 0 15px 0 #dcdcdc;
 }
 .btn_cross_profile {
@@ -1487,7 +1498,7 @@ body {
   line-height: 1.8;
 }
 .menu_links_header_text_div, .window_menu_profile_form {
-  box-shadow: 0 0 19px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 21px 0 rgba(0, 0, 0, 0.2);
 }
 #old_password, .password1_change_psw, .password2_change_psw {
   margin-left: 0;
@@ -2112,6 +2123,20 @@ body {
 }
 
 @media (max-width: 767px){
+  .form_avatar {
+    padding: calc(10px);
+    width: calc(300px)
+  }
+  .avatar_form_div {
+    width: calc(50% - 5px);
+    position: relative;
+  }
+  .avatar_form_div:nth-child(odd) {
+    margin: 0 5px 5px 0;
+  }
+  .avatar_form_div:nth-child(even) {
+    margin: 0 0 5px 5px;
+  }
   .msg, .tags {
     padding: 10px 12px;
   }
@@ -2575,8 +2600,8 @@ body {
     height: 110px;
   }
   .plus_profile_page {
-    right: 12px;
-    bottom: 12px;
+    right: 5px;
+    bottom: 5px;
     width: calc(12px);
     height: calc(12px);
   }
@@ -2584,7 +2609,7 @@ body {
     margin: 5px 0 10px 0;
   }
   .menu_links_header_text_div, .window_menu_profile_form {
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.2);
   }
   .name, .subject, .msg, .info, .password, .tags, .header_of_post,
   .number, .email, .fio, #tags_default {
@@ -2613,6 +2638,20 @@ body {
 }
 
 @media (max-width: 478px){
+  .form_avatar {
+    padding: calc(8px);
+    width: calc(60% + 18vw)
+  }
+  .avatar_form_div {
+    width: calc(50%);
+    position: relative;
+  }
+  .avatar_form_div:nth-child(odd) {
+    margin: 0 0 5px 0;
+  }
+  .avatar_form_div:nth-child(even) {
+    margin: 0 0 5px 0;
+  }
   #help_form, .help_add_post_form {
     padding: 14px;
     width: calc(100% - 85px);
@@ -2661,7 +2700,7 @@ body {
       height: 30px;
   }
   .menu_links_header_text_div, .window_menu_profile_form {
-    box-shadow: 0 0 13px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.2);
   }
   .card_of_friend_div, .card_of_request_friend_div {
     width: calc(100% - 10px);
@@ -2720,8 +2759,8 @@ body {
     padding: 0 7px;
   }
   .plus_profile_page {
-    right: 11px;
-    bottom: 11px;
+    right: 4px;
+    bottom: 4px;
     width: calc(11px);
     height: calc(11px);
   }

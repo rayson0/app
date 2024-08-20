@@ -7,12 +7,12 @@
       <img src = '{{url_for("static", filename="images/cross.png")}}' class = 'img_cross_center'>
     </a>
     <h2> Выбери новый аватар </h2>
+    <p class = 'bold_text' style = 'margin: 1em 0;'>
+      1. Выбери из предложенных
+    </p>
     <div class = 'avatars_div'>
-      <p class = 'bold_text' style = 'font-size: calc(11px + 0.4vw); margin-bottom: 1em;'>
-        1. Выбери из предложенных
-      </p>
       {% for i in form.radio %}
-        <div class = 'avatar_div'>
+        <div class = 'avatar_form_div'>
           {{i}}
           <img class = 'avatar_form_img'>
         </div>
@@ -30,7 +30,7 @@
       {% endfor %}
     </div>
     <div style = 'margin-top: 1em'>
-      {{form.submit(class = 'submit_avatar hover_submit')}}
+      {{form.submit(class = 'submit_avatar hover_submit', id = 'submit_filter')}}
     </div>
   </form>
 {% endblock %}
