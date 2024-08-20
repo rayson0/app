@@ -3,7 +3,7 @@
 {% block content %}
   <div class = 'check_psw_div'>
     <a href = 'settings' class = 'arrow_to_back margin_arrow'>
-      <img src = '/static/images/arrow2.png'>
+      <img src = '/static/images/arrow2.png' class = 'arrow_to_back_img'>
     </a>
     <form action = '' method = 'post' class = 'check_psw_form'>
       {{form.hidden_tag()}}
@@ -37,7 +37,7 @@
       </div>
       {% endfor %}
       <div class = 'submit_change_psw'>
-        {{form.submit(id = 'submit', class = 'hover_submit')}}
+        {{form.submit(id = 'submit_filter', class = 'hover_submit')}}
       </div>
     </form>
   </div>

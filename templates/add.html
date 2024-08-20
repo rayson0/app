@@ -3,7 +3,7 @@
 {% block content %}
   <div class = 'full_form_add_post'>
     <a href = '/choice_of_post' class = 'arrow_to_back'>
-      <img src = '/static/images/arrow2.png'>
+      <img src = '/static/images/arrow2.png' class = 'arrow_to_back_img'>
     </a>
     <form action = '' method = 'post' class = 'form_add_post'>
       {{form.hidden_tag()}}
@@ -35,7 +35,7 @@
           </div>
       {% endfor %}
       <div class = 'block_submit'>
-        {{form.submit(class = 'submit hover_submit')}}
+        {{form.submit(id = 'submit_filter', class = 'submit hover_submit submit_add_post')}}
       </div>
     </form>
   </div>

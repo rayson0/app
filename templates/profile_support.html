@@ -13,13 +13,13 @@
         {% if requests %}
           {% for i in range(len(requests)) %}
           <div class = 'full_request_content_div'>
-            <button class = 'full_request_support_btn' onclick = 'open_request({{requests[i][0] - 1}})'
+            <button class = 'full_request_support_btn' onclick = 'open_request({{i}})'
             onmouseover = 'hover_cont_req_btn({{i}}, 0)' onmouseout = 'hover_cont_req_btn({{i}}, 1)'>
                <p> Запрос №{{requests[i][0]}} </p>
                <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow request'>
              </button>
             <div class = 'request_div'>
-              <button class = 'request_support_btn' onclick = 'open_question({{requests[i][0] - 1}})'
+              <button class = 'request_support_btn' onclick = 'open_question({{i}})'
               onmouseover = 'hover_question_btn({{i}}, 0)' onmouseout = 'hover_question_btn({{i}}, 1)'>
                 <p> Запрос </p>
                 <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow question'>
@@ -28,7 +28,7 @@
                   <p> <b> Тема: </b> {{requests[i][1]}} </p>
                   <p> <b> Сообщение: </b> {{requests[i][2]}} </p>
               </div>
-              <button class = 'answer_support_btn' onclick = 'open_answer({{requests[i][0] - 1}})'
+              <button class = 'answer_support_btn' onclick = 'open_answer({{i}})'
               onmouseover = 'hover_answer_btn({{i}}, 0)' onmouseout = 'hover_answer_btn({{i}}, 1)'>
                 <p> Ответ </p>
                 <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow answer'>
@@ -41,7 +41,7 @@
           {% endfor %}
         {% else %}
           <div class = 'full_request_content_div'>
-            <p class = 'semi-bold_text'> Входящих запросов не было </p>
+            <p class = 'semi-bold_text not_found_inbox_requests'> Входящих запросов не было </p>
           </div>
         {% endif %}
       </div>
@@ -91,6 +91,7 @@
     }
 
     function open_request(index){
+      console.log(index)
       if (request_div[index].style.display == 'none'){
         request_div[index].style.display = 'flex';
         arrows_request_div[index].style.transform = 'rotate(270deg)'

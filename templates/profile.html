@@ -44,13 +44,29 @@
       </div>
     </div>
     <div class = 'window_profile_div'>
-      {% block window %}
         <div class = 'content_window_menu_profile_div'>
           <button class = 'window_menu_profile_btn'>
+            <img src = '{{url_for("static", filename="images/menu_iconic_white.png")}}' class = 'window_menu_profile_img'>
           </button>
           <div class = 'window_menu_profile_div'>
+            <form class = 'window_menu_profile_form' method = 'post' action = '/logout'>
+              {{form_exit.hidden_tag()}}
+              {% for link in menu %}
+                {% if link['class'] != 'exit_link' %}
+                <a href = '{{link["url"]}}' class = '{{link["class"]}} link_profile_window border_bottom'>
+                  <img src = '{{link["img_url"]}}' class = 'img_profile_link_window'>
+                  <span class = 'text_link_profile'> {{link['text']}} </span>
+                </a>
+                {% else %}
+                  <div class = 'exit_link_btn'>
+                    {{form_exit.submit1(class =  'exit_link link_profile')}}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </form>
           </div>
         </div>
+        {% block window %}
         <div class = 'info_profile_div'>
           <a class = 'avatar_div' href = 'change_avatar'>
             <img src = '{{current_user.get_avatar()}}' class = 'avatar_profile_page'>

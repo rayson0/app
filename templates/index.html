@@ -195,26 +195,26 @@
     <footer>
       <div class = 'content_footer'>
         <div class = 'clients_div'>
-          <h3 style = 'margin-left: 6px'> Клиентам </h3>
+          <h3 style = 'margin-left: 8px'> Клиентам </h3>
           <div class = 'links_clients_div'>
             <div class = 'footer_link_div'>
               <button class = 'footer_help_btn'>
-                <p style = 'word-break: break-all; text-align: left'> Как добавить публикацию? </p>
+                <p style = 'word-break: break-word; text-align: left'> Как добавить публикацию? </p>
               </button>
             </div>
             <div class = 'footer_link_div'>
               <button class = 'footer_help_btn'>
-                <p style = 'word-break: break-all; text-align: left'> Как читать публикации? </p>
+                <p style = 'word-break: break-word; text-align: left'> Как читать публикации? </p>
               </button>
             </div>
             <div class = 'footer_link_div'>
               <a href = '/support' class = 'footer_link'>
-                <p style = 'word-break: break-all; text-align: left'> Помощь </p>
+                <p style = 'word-break: break-word; text-align: left'> Помощь </p>
               </a>
             </div>
             <div class = 'footer_link_div'>
               <button class = 'footer_help_btn'>
-                <p style = 'word-break: break-all; text-align: left'> О сайте </p>
+                <p style = 'word-break: break-word; text-align: left'> О сайте </p>
               </button>
             </div>
           </div>
@@ -243,9 +243,7 @@
   <script>
     add_post_btn = document.getElementsByClassName('footer_help_btn')
     help_add_post_div = document.getElementsByClassName('help_add_post_form')
-    menu_links_header_text_div = document.getElementsByClassName('menu_links_header_text_div')[0]
-
-    menu_links_header_text_div.style.display = 'none'
+    dark_sc = document.getElementsByClassName('dark_screen')[0]
 
     add_post_btn[0].onclick = function (){
       help_add_post_div[0].style.display = 'block'
@@ -263,17 +261,57 @@
         help_add_post_div[i].style.display = 'none'
     }
 
-    function open_menu_links_header(){
-      dark_screen = document.getElementsByClassName('dark_screen')[0]
-      if (menu_links_header_text_div.style.display == 'none'){
-        menu_links_header_text_div.style.display = 'flex';
-        dark_screen.style.background = 'rgba(0, 0, 0, 0.04)'
+    btn_for_menu = document.getElementsByClassName('window_menu_profile_btn')[0]
+    img_for_menu = document.getElementsByClassName('window_menu_profile_img')[0]
+    window_menu_profile_div = document.getElementsByClassName('window_menu_profile_div')[0]
+    window_div = document.getElementsByClassName('window_profile_div')[0]
+    btns_wind = window_div.getElementsByTagName('button')
+    forms_wind = window_div.getElementsByTagName('form')
+    inps_wind = window_div.getElementsByTagName('input')
+
+    window_menu_profile_div.style.display = 'none'
+
+    btn_for_menu.onmouseover = function () {
+      img_for_menu.style.opacity = '0.85'
+    }
+
+    btn_for_menu.onmouseout = function () {
+      img_for_menu.style.opacity = '1'
+    }
+
+    btn_for_menu.onclick = function () {
+      if (window_menu_profile_div.style.display == 'none'){
+        window_menu_profile_div.style.display = 'flex';
+        window_div.style.background = 'rgba(0, 0, 0, 0.04)'
+        for (i = 1; i < btns_wind.length; i ++){
+          btns_wind[i].style.filter = 'blur(1px)'
+        }
+        for (i = 1; i < forms_wind.length; i ++){
+          forms_wind[i].style.filter = 'blur(1px)'
+        }
+        for (i = 2; i < inps_wind.length; i ++){
+          inps_wind[i].style.filter = 'blur(1px)'
+        }
       }
       else{
-        menu_links_header_text_div.style.display = 'none'
-        dark_screen.style.background = 'none'
+        window_menu_profile_div.style.display = 'none';
+        window_div.style.background = 'white'
+        for (i = 1; i < btns_wind.length; i ++){
+          btns_wind[i].style.filter = 'none'
+        }
+        for (i = 1; i < forms_wind.length; i ++){
+          forms_wind[i].style.filter = 'none'
+        }
+        for (i = 2; i < inps_wind.length; i ++){
+          inps_wind[i].style.filter = 'none'
+        }
       }
     }
+  </script>
+{% endblock %}
+
+{% block script_menu %}
+  <script src = '{{url_for("static", filename="scripts/script_menu.js")}}'>
   </script>
 {% endblock %}
 </html>

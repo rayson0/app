@@ -3,9 +3,9 @@
 {% block content %}
   <div class = 'content_friend_div'>
     {% if prop_friends %}
+    <h3 align = 'center'> Предлагаемые друзья <h3>
+      <div class = 'prop_friends_div'>
       {% for fr in prop_friends[:40] %}
-        <h3 align = 'center'> Предлагаемые друзья <h3>
-          <div class = 'prop_friends_div'>
             <div class = 'card_of_prop_friend_div'>
               <div class = 'content_card_of_prop_friend_div'>
                 <div>
@@ -29,11 +29,12 @@
                 </div>
               </div>
               <form class = 'post_request_friend_form' action = 'request-friend-{{fr["id"]}}' method = 'post'>
+                {{form.hidden_tag()}}
                 {{form.submit(class = 'btn_in_div_profile post_request_friend_btn', id = 'request_friend_btn')}}
               </form>
             </div>
-          </div>
-        {% endfor %}
+      {% endfor %}
+      </div>
       {% else %}
       <div class = 'not_found_friends_div'>
         <h2 style = 'width: calc(100% - 15px)' align = 'center'>

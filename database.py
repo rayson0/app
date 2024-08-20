@@ -134,7 +134,7 @@ links_profile_page = [
         'text': 'Поддержка',
         'url': 'support',
         'img_url': f'{IMG}support.png',
-        'class': 'support_link',
+        'class': 'support_link_menu',
     },
     {
         'text': 'Выйти',

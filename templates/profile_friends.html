@@ -2,7 +2,8 @@
 
 {% block window %}
   <h3 align = 'center'> Друзья </h3>
-  <button class = 'friends_btn' onclick = 'open_cards_of_friends()' onmouseover = 'hover_friends_btn()' onmouseout = 'default_hover_friends_btn()'>
+  <button class = 'friends_btn' onclick = 'open_cards_of_friends()' onmouseover = 'hover_friends_btn()'
+  onmouseout = 'default_hover_friends_btn()' style = 'margin-top: 1.5em'>
      <p> Друзья ({{cnt_friends}}) </p>
      <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow'>
    </button>
@@ -38,7 +39,7 @@
         </div>
       {% endfor %}
     {% else %}
-      <p class = 'bold_text' style = 'margin-left: 1.5em'>
+      <p class = 'bold_text not_found_friends'>
         Друзей не нашлось
       </p>
     {% endif %}
@@ -92,7 +93,7 @@
        </div>
        {% endfor %}
      {% else %}
-      <p class = 'bold_text' style = 'margin-left: 1.5em'>
+      <p class = 'bold_text not_found_requests_friends'>
         Входящих запросов не нашлось
       </p>
      {% endif %}
@@ -153,7 +154,6 @@
 
     cards_of_friends.style.display = 'none';
     cards_of_request_friends.style.display = 'none'
-    friends_btn.style.marginTop = '1em';
 
     function open_cards_of_friends(){
       if (cards_of_friends.style.display == 'none'){

@@ -746,7 +746,7 @@ def change_password2(name):
             return redirect(url_for('settings',
                                     name=current_user.get_name()))
         else:
-            flash_msgs(res[1], 'error')
+            flash_msgs('change_psw', res[1], 'error')
     return render_template('profile_change_psw2.html',
                            links_header=db.get_info_menu_right(current_user),
                            title=f'Изменение пароля',

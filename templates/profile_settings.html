@@ -1,7 +1,7 @@
 {% extends 'profile.html' %}
 
 {% block window %}
-  <h3 align = 'center'> Настройки </h3>
+  <h3 align = 'center' style = 'margin-bottom: 1.5em;'> Настройки </h3>
   <h3> Данные пользователя </h3>
    <div class = 'email_user'>
      <div class = 'block1_settings'>
@@ -16,9 +16,7 @@
           <p></p>
         </div>
         <div class = 'block3_settings'>
-          <button class = 'change_info_btn hover_submit' id = 'submit_filter' onclick = 'open_menu_form("email_form")'>
-            Изменить
-          </button>
+          <input type = 'button' value = 'Изменить'  class = 'change_info_btn hover_submit' id = 'submit_filter' onclick = 'open_menu_form("email_form")'>
         </div>
       </div>
       <form action = '/add_email' method = 'post' class = 'change_info_form email_form' style = 'display: none;'>
@@ -27,7 +25,8 @@
     {% endif %}
         {{form_email.hidden_tag()}}
         <div class = 'block2_settings'>
-          {{form_email.email(placeholder = 'Введите электронную почту', class = 'email input_field', value = '' if info['email'] is none else info['email'])}}
+          {{form_email.email(placeholder = 'Введите электронную почту', class = 'email input_field', value = '' if info['email'] is none else info['email'],
+          style = 'margin: 0')}}
         </div>
         {% if not info['email'] %}
         <div class = 'flash_settings_div'>
@@ -53,9 +52,7 @@
           <p></p>
         </div>
         <div class = 'block3_settings'>
-          <button class = 'change_info_btn submit_filter hover_submit' id = 'submit_filter' onclick = 'open_menu_form("number_form")'>
-            Изменить
-          </button>
+          <input type = 'button' value = 'Изменить' class = 'change_info_btn submit_filter hover_submit' id = 'submit_filter' onclick = 'open_menu_form("number_form")'>
         </div>
       </div>
       <form action = '/add_number' method = 'post' class = 'change_info_form number_form' style = 'display: none;'>
@@ -64,7 +61,8 @@
     {% endif %}
         {{form_number.hidden_tag()}}
         <div class = 'block2_settings'>
-          {{form_number.number(placeholder = 'Введите номер телефона', class = 'number input_field', value = '' if info['number'] is none else info['number'])}}
+          {{form_number.number(placeholder = 'Введите номер телефона', class = 'number input_field', value = '' if info['number'] is none else info['number'],
+          style = 'margin: 0')}}
         </div>
         {% if not info['number'] %}
         <div class = 'flash_settings_div'>
@@ -90,9 +88,7 @@
           <p></p>
         </div>
         <div class = 'block3_settings'>
-          <button class = 'change_info_btn submit_filter hover_submit' id = 'submit_filter' onclick = 'open_menu_form("fio_form")'>
-            Изменить
-          </button>
+          <input type = 'button' value = 'Изменить'  class = 'change_info_btn submit_filter hover_submit' id = 'submit_filter' onclick = 'open_menu_form("fio_form")'>
         </div>
       </div>
       <form action = '/add_fio' method = 'post' class = 'change_info_form fio_form' style = 'display: none;'>
@@ -101,7 +97,8 @@
     {% endif %}
         {{form_fio.hidden_tag()}}
         <div class = 'block2_settings fio_inputs_settings'>
-          {{form_fio.sur(placeholder = 'Введите фамилию', class = 'fio input_field', value = '' if info['surname'] is none else info['surname'])}}
+          {{form_fio.sur(placeholder = 'Введите фамилию', class = 'fio input_field', value = '' if info['surname'] is none else info['surname'],
+          style = 'margin: 0')}}
           {{form_fio.first(placeholder = 'Введите имя', class = 'fio input_field margin_fio', value = '' if info['first_name'] is none else info['first_name'])}}
           {{form_fio.last(placeholder = 'Введите отчество', class = 'fio input_field margin_fio', value = '' if info['last_name'] is none else info['last_name'])}}
         </div>
@@ -122,9 +119,7 @@
     </div>
     <div class = 'block3_settings'>
       <a href = 'change_password1'>
-        <button class = 'hover_submit' id = 'submit_filter'>
-          Изменить пароль
-        </button>
+        <input type = 'button' value = 'Изменить'  class = 'hover_submit' id = 'submit_filter'>
       </a>
     </div>
   </div>
@@ -142,9 +137,7 @@
           <p></p>
         </div>
         <div class = 'block3_settings'>
-          <button class = 'change_info_btn submit_filter hover_submit' id = 'submit_filter' onclick = 'open_menu_form("about_me_form")'>
-            Изменить
-          </button>
+          <input type = 'button' value = 'Изменить'  class = 'change_info_btn submit_filter hover_submit' id = 'submit_filter' onclick = 'open_menu_form("about_me_form")'>
         </div>
       </div>
       <form action = '/add_about_me' method = 'post' class = 'change_info_form about_me_form' style = 'display: none;'>
