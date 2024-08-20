@@ -723,10 +723,8 @@ class DB:
         for subj in subjects_of_posts:
             self.cursor.execute(f'SELECT COUNT(subject) FROM posts WHERE subject LIKE "%{subj}%"')
             cnt = self.cursor.fetchone()
-            if cnt:
+            if cnt and cnt[0] > 0:
                 res.append((subj, f'{subj} ({cnt[0]})'))
-            else:
-                res.append((subj, f'{subj} (0)'))
         return res
 
     def filter_posts(self, session, current_user, search):

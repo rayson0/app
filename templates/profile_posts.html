@@ -23,7 +23,7 @@
                 <p> {{types_of_posts[ind]['type']}} №{{posts(types_of_posts[ind]['type'], current_user)[i]['id']}} </p>
                 <img src = '{{url_for("static", filename="images/arrow.png")}}' class = 'img_arrow lvl3_{{posts(types_of_posts[ind]["type"], current_user)[i]["id"]}} img_arrow_lvl3'>
               </button>
-              <div class = 'post_mini_div content_post_profile' id = 'post_number_{{posts(types_of_posts[ind]["type"], current_user)[i]["id"]}}'>
+              <div class = 'post_mini_div_posts content_post_profile' id = 'post_number_{{posts(types_of_posts[ind]["type"], current_user)[i]["id"]}}'>
                 <div class = 'body_post' style = 'background: url({{posts(types_of_posts[ind]["type"], current_user)[i]["bg"]}})'>
                   {% if posts(types_of_posts[ind]['type'], current_user)[i]['subject'] %}
                     <h3 class = 'subject_text'> {{posts(types_of_posts[ind]['type'], current_user)[i]['subject']}} </h3>
@@ -74,7 +74,7 @@
     arrows1 = document.getElementsByClassName('img_arrow lvl1')
     arrows2 = document.getElementsByClassName('img_arrow_lvl2')
     arrows3 = document.getElementsByClassName('img_arrow_lvl3')
-    content_post = document.getElementsByClassName('post_mini_div')
+    content_post = document.getElementsByClassName('post_mini_div_posts')
     smile_img = document.getElementsByClassName('smile_img')
     types_btn = document.getElementsByClassName('types_btn')
     post_btn = document.getElementsByClassName('post_btn')
